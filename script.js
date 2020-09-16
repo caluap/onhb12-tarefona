@@ -50,7 +50,7 @@ function init() {
     for (let x = 0; x < cols; x++) {
       let i = x + y * cols;
       let color = i % 2 == 0 ? "red" : "green";
-      let iShape = i % 11;
+      let iShape = i % 15;
       drawShape(x, y, s, color, "white", iShape);
     }
   }
@@ -113,6 +113,7 @@ function drawShape(
     cy = y + size / 2;
 
   ctx.fillStyle = color;
+
   switch (iShape) {
     case 0: // square
       processShape(shapes[0], x, y, size); // square
@@ -123,11 +124,10 @@ function drawShape(
       ctx.arc(cx, cy, size * 0.5 * 0.5, 0, Math.PI * 2, false);
       ctx.fill();
       break;
-    case 2:
+    case 2: // circle
       ctx.beginPath();
       ctx.arc(cx, cy, size * 0.5, 0, Math.PI * 2, false);
       ctx.fill();
-      break;
       break;
     case 3: // donut with 1/2 radius hole
       ctx.beginPath();
@@ -174,6 +174,42 @@ function drawShape(
       break;
     case 10:
       processShape(shapes[3], x, y, size);
+      ctx.fill();
+      break;
+    case 11:
+      // semi circles looking right
+      ctx.beginPath();
+      ctx.arc(x, cy, size * 0.5, Math.PI / 2, (Math.PI * 3) / 2, true);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(cx, cy, size * 0.5, Math.PI / 2, (Math.PI * 3) / 2, true);
+      ctx.fill();
+      break;
+    case 12:
+      // semi circles looking left
+      ctx.beginPath();
+      ctx.arc(cx, cy, size * 0.5, Math.PI / 2, (Math.PI * 3) / 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(x + size, cy, size * 0.5, Math.PI / 2, (Math.PI * 3) / 2);
+      ctx.fill();
+      break;
+    case 13:
+      // semi circles looking down
+      ctx.beginPath();
+      ctx.arc(cx, y, size * 0.5, 0, Math.PI);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(cx, cy, size * 0.5, 0, Math.PI);
+      ctx.fill();
+      break;
+    case 14:
+      // semi circles looking up
+      ctx.beginPath();
+      ctx.arc(cx, cy, size * 0.5, 0, Math.PI, true);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(cx, y + size, size * 0.5, 0, Math.PI, true);
       ctx.fill();
       break;
   }
