@@ -50,7 +50,7 @@ function init() {
     for (let x = 0; x < cols; x++) {
       let i = x + y * cols;
       let color = i % 2 == 0 ? "red" : "green";
-      let iShape = i % 15;
+      let iShape = i % 17;
       drawShape(x, y, s, color, "white", iShape);
     }
   }
@@ -210,6 +210,24 @@ function drawShape(
       ctx.fill();
       ctx.beginPath();
       ctx.arc(cx, y + size, size * 0.5, 0, Math.PI, true);
+      ctx.fill();
+      break;
+    case 15:
+      // semi-circles vertically looking at each other
+      ctx.beginPath();
+      ctx.arc(cx, y, size * 0.5, 0, Math.PI);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(cx, y + size, size * 0.5, 0, Math.PI, true);
+      ctx.fill();
+      break;
+    case 16:
+      // semi-circles horizontally looking at each other
+      ctx.beginPath();
+      ctx.arc(x, cy, size * 0.5, Math.PI / 2, (Math.PI * 3) / 2, true);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(x + size, cy, size * 0.5, Math.PI / 2, (Math.PI * 3) / 2);
       ctx.fill();
       break;
   }
