@@ -53,13 +53,25 @@ let shapes = [
   ],
 ];
 
+function hash(str) {
+  return Array.from(str).reduce(
+    (hash, char) => 0 | (31 * hash + char.charCodeAt(0)),
+    0
+  );
+}
+
+function randInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 function init() {
   canvas = document.getElementById("cover-canvas");
   ctx = canvas.getContext("2d");
   width = canvas.offsetWidth;
   height = canvas.offsetHeight;
 
-  // ctx.fillStyle = "#d1d3d4";
   ctx.fillStyle = "#fff";
   ctx.fillRect(0, 0, width, height);
 
@@ -67,14 +79,69 @@ function init() {
     cols = width / s,
     rows = height / s;
 
+  let randString = "";
+  let seedString =
+    "b19a6b6ca616e6b6bb11ecd04b0800a3c3a98a955af06aa8f15137dcdeaf7eff2ac66edf0c2b0b57dc985486e4bc57a3";
+
+  let family, complementaryFamily;
+
+  if (seedString == "") {
+    family = randInt(0, 7);
+    complementaryFamily = family;
+    while (complementaryFamily == family) {
+      complementaryFamily = randInt(0, 7);
+    }
+  } else {
+    family = parseInt(seedString, 16) % 8;
+    complementaryFamily = family;
+    for (let i = 0; i < seedString.length; i++) {
+      if (parseInt(seedString[i], 16) % 8 != family) {
+        complementaryFamily = parseInt(seedString[i], 16) % 8;
+      }
+    }
+  }
+
+  let mainColors = ["red", "green"];
+
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
       let i = x + y * cols;
-      let color = ["red", "green"][parseInt(Math.random() * 2)];
-      let iShape = parseInt(Math.random() * 12);
-      drawShape(x, y, s, color, [7, 0][parseInt(Math.random() * 2)], iShape);
+      let char;
+
+      if (seedString == "") {
+        char = randInt(0, 15);
+      } else {
+        char = parseInt(seedString[i % seedString.length], 16);
+      }
+
+      randString += Number(char).toString(16);
+
+      if ([0, 1].indexOf(char) != -1) {
+        continue;
+      }
+
+      let helperHash = hash(
+        char + " this here gives me some variation " + char
+      ).toString(16);
+
+      let color;
+      if (["0", "1"].indexOf(helperHash[1]) != -1) {
+        color = "pink";
+      } else {
+        color = mainColors[i % mainColors.length];
+      }
+
+      let currentFamily;
+      if (["0", "1"].indexOf(helperHash[2]) != -1) {
+        currentFamily = complementaryFamily;
+      } else {
+        currentFamily = family;
+      }
+      drawShape(x, y, s, color, currentFamily, char);
     }
   }
+
+  console.log(randString);
 
   // drawGrid(cols, rows, s);
 }
@@ -128,7 +195,6 @@ function drawShape(ix, iy, size, color = "black", shapeFamily = 0, iShape = 0) {
 
   let shapeFamilyCounts = [4, 4, 4, 2, 5, 4, 2, 2];
   iShape = iShape % shapeFamilyCounts[shapeFamily];
-
   ctx.fillStyle = color;
 
   // trinagles
