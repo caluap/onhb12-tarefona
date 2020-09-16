@@ -50,7 +50,7 @@ function init() {
     for (let x = 0; x < cols; x++) {
       let i = x + y * cols;
       let color = i % 2 == 0 ? "red" : "green";
-      let iShape = i % 17;
+      let iShape = i % 21;
       drawShape(x, y, s, color, "white", iShape);
     }
   }
@@ -229,6 +229,34 @@ function drawShape(
       ctx.beginPath();
       ctx.arc(x + size, cy, size * 0.5, Math.PI / 2, (Math.PI * 3) / 2);
       ctx.fill();
+      break;
+    case 17:
+      // rect + semi circle looking right
+      ctx.fillRect(x, y, size / 2, size);
+      ctx.beginPath();
+      ctx.arc(cx, cy, size * 0.5, Math.PI / 2, (Math.PI * 3) / 2, true);
+      ctx.fill();
+      break;
+    case 18:
+      // rect + semi circle looking left
+      ctx.beginPath();
+      ctx.arc(cx, cy, size * 0.5, Math.PI / 2, (Math.PI * 3) / 2);
+      ctx.fill();
+      ctx.fillRect(cx, y, size / 2, size);
+      break;
+    case 19:
+      // rect + semi circle looking down
+      ctx.fillRect(x, y, size, size / 2);
+      ctx.beginPath();
+      ctx.arc(cx, cy, size * 0.5, 0, Math.PI);
+      ctx.fill();
+      break;
+    case 20:
+      // rect + semi circle looking up
+      ctx.beginPath();
+      ctx.arc(cx, cy, size * 0.5, 0, Math.PI, true);
+      ctx.fill();
+      ctx.fillRect(x, cy, size, size / 2);
       break;
   }
 }
