@@ -31,6 +31,26 @@ let shapes = [
     { x: 1, y: 0 },
     { x: 0.5, y: 0.5 },
   ],
+  [
+    { x: 0, y: 1 },
+    { x: 1, y: 1 },
+    { x: 1, y: 0 },
+  ],
+  [
+    { x: 0, y: 0 },
+    { x: 0, y: 1 },
+    { x: 1, y: 0 },
+  ],
+  [
+    { x: 0, y: 0 },
+    { x: 0, y: 1 },
+    { x: 1, y: 1 },
+  ],
+  [
+    { x: 0, y: 0 },
+    { x: 1, y: 0 },
+    { x: 1, y: 1 },
+  ],
 ];
 
 function init() {
@@ -50,7 +70,7 @@ function init() {
     for (let x = 0; x < cols; x++) {
       let i = x + y * cols;
       let color = i % 2 == 0 ? "red" : "green";
-      let iShape = i % 23;
+      let iShape = i % 27;
       drawShape(x, y, s, color, "white", iShape);
     }
   }
@@ -271,6 +291,22 @@ function drawShape(
       for (let i = 0; i < 6; i++) {
         ctx.fillRect(x, y + i * h * 2, size, h);
       }
+      break;
+    case 23:
+      processShape(shapes[4], x, y, size);
+      ctx.fill();
+      break;
+    case 24:
+      processShape(shapes[5], x, y, size);
+      ctx.fill();
+      break;
+    case 25:
+      processShape(shapes[6], x, y, size);
+      ctx.fill();
+      break;
+    case 26:
+      processShape(shapes[7], x, y, size);
+      ctx.fill();
       break;
   }
 }
