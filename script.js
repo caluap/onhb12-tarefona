@@ -59,23 +59,24 @@ function init() {
   width = canvas.offsetWidth;
   height = canvas.offsetHeight;
 
-  ctx.fillStyle = "white";
+  // ctx.fillStyle = "#d1d3d4";
+  ctx.fillStyle = "#fff";
   ctx.fillRect(0, 0, width, height);
 
-  let s = 40,
+  let s = 75,
     cols = width / s,
     rows = height / s;
 
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
       let i = x + y * cols;
-      let color = i % 2 == 0 ? "red" : "green";
-      let iShape = i % 27;
-      drawShape(x, y, s, color, "white", iShape);
+      let color = ["red", "green"][parseInt(Math.random() * 2)];
+      let iShape = parseInt(Math.random() * 12);
+      drawShape(x, y, s, color, [7, 0][parseInt(Math.random() * 2)], iShape);
     }
   }
 
-  drawGrid(cols, rows, s);
+  // drawGrid(cols, rows, s);
 }
 
 function processShape(
@@ -119,194 +120,235 @@ function drawGrid(cols, rows, size) {
   }
 }
 
-function drawShape(
-  ix,
-  iy,
-  size,
-  color = "black",
-  bgcolor = "white",
-  iShape = 0
-) {
+function drawShape(ix, iy, size, color = "black", shapeFamily = 0, iShape = 0) {
   let x = ix * size,
     y = iy * size,
     cx = x + size / 2,
     cy = y + size / 2;
 
+  let shapeFamilyCounts = [4, 4, 4, 2, 5, 4, 2, 2];
+  iShape = iShape % shapeFamilyCounts[shapeFamily];
+
   ctx.fillStyle = color;
 
-  switch (iShape) {
-    case 0: // square
-      processShape(shapes[0], x, y, size); // square
-      ctx.fill();
-      break;
-    case 1: // square with cut out circle
-      processShape(shapes[0], x, y, size); // square
-      ctx.arc(cx, cy, size * 0.5 * 0.5, 0, Math.PI * 2, false);
-      ctx.fill();
-      break;
-    case 2: // circle
-      ctx.beginPath();
-      ctx.arc(cx, cy, size * 0.5, 0, Math.PI * 2, false);
-      ctx.fill();
-      break;
-    case 3: // donut with 1/2 radius hole
-      ctx.beginPath();
-      ctx.arc(cx, cy, size * 0.5, 0, Math.PI * 2, false);
-      ctx.arc(cx, cy, size * 0.5 * 0.5, 0, Math.PI * 2, false);
-      ctx.fill("evenodd");
-      break;
-    case 4: // donut with 3/4 radius hole
-      ctx.beginPath();
-      ctx.arc(cx, cy, size * 0.5, 0, Math.PI * 2, false);
-      ctx.arc(cx, cy, size * 0.5 * 0.75, 0, Math.PI * 2, false);
-      ctx.fill("evenodd");
-      break;
-    case 5: // donut with 1/4 radius hole
-      ctx.beginPath();
-      ctx.arc(cx, cy, size * 0.5, 0, Math.PI * 2, false);
-      ctx.arc(cx, cy, size * 0.5 * 0.25, 0, Math.PI * 2, false);
-      ctx.fill("evenodd");
-      break;
-    case 6: // diamond
-      processShape(shapes[1], x, y, size);
-      ctx.fill();
-      break;
-    case 7: // diamond with round hole
-      processShape(shapes[1], x, y, size);
-      ctx.arc(cx, cy, size * 0.5 * 0.25, 0, Math.PI * 2);
-      ctx.fill("evenodd");
-      break;
-    case 8: // square with diamond shaped hole
-      processShape(shapes[0], x, y, size);
-      processShape(
-        shapes[1],
-        x + size * 0.1464796582,
-        y + size * 0.1464796582,
-        size * 0.7071335686,
-        false,
-        false
-      );
-      ctx.fill("evenodd");
-      break;
-    case 9:
-      processShape(shapes[2], x, y, size);
-      ctx.fill();
-      break;
-    case 10:
-      processShape(shapes[3], x, y, size);
-      ctx.fill();
-      break;
-    case 11:
-      // semi circles looking right
-      ctx.beginPath();
-      ctx.arc(x, cy, size * 0.5, Math.PI / 2, (Math.PI * 3) / 2, true);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(cx, cy, size * 0.5, Math.PI / 2, (Math.PI * 3) / 2, true);
-      ctx.fill();
-      break;
-    case 12:
-      // semi circles looking left
-      ctx.beginPath();
-      ctx.arc(cx, cy, size * 0.5, Math.PI / 2, (Math.PI * 3) / 2);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(x + size, cy, size * 0.5, Math.PI / 2, (Math.PI * 3) / 2);
-      ctx.fill();
-      break;
-    case 13:
-      // semi circles looking down
-      ctx.beginPath();
-      ctx.arc(cx, y, size * 0.5, 0, Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(cx, cy, size * 0.5, 0, Math.PI);
-      ctx.fill();
-      break;
-    case 14:
-      // semi circles looking up
-      ctx.beginPath();
-      ctx.arc(cx, cy, size * 0.5, 0, Math.PI, true);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(cx, y + size, size * 0.5, 0, Math.PI, true);
-      ctx.fill();
-      break;
-    case 15:
-      // semi-circles vertically looking at each other
-      ctx.beginPath();
-      ctx.arc(cx, y, size * 0.5, 0, Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(cx, y + size, size * 0.5, 0, Math.PI, true);
-      ctx.fill();
-      break;
-    case 16:
-      // semi-circles horizontally looking at each other
-      ctx.beginPath();
-      ctx.arc(x, cy, size * 0.5, Math.PI / 2, (Math.PI * 3) / 2, true);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(x + size, cy, size * 0.5, Math.PI / 2, (Math.PI * 3) / 2);
-      ctx.fill();
-      break;
-    case 17:
-      // rect + semi circle looking right
-      ctx.fillRect(x, y, size / 2, size);
-      ctx.beginPath();
-      ctx.arc(cx, cy, size * 0.5, Math.PI / 2, (Math.PI * 3) / 2, true);
-      ctx.fill();
-      break;
-    case 18:
-      // rect + semi circle looking left
-      ctx.beginPath();
-      ctx.arc(cx, cy, size * 0.5, Math.PI / 2, (Math.PI * 3) / 2);
-      ctx.fill();
-      ctx.fillRect(cx, y, size / 2, size);
-      break;
-    case 19:
-      // rect + semi circle looking down
-      ctx.fillRect(x, y, size, size / 2);
-      ctx.beginPath();
-      ctx.arc(cx, cy, size * 0.5, 0, Math.PI);
-      ctx.fill();
-      break;
-    case 20:
-      // rect + semi circle looking up
-      ctx.beginPath();
-      ctx.arc(cx, cy, size * 0.5, 0, Math.PI, true);
-      ctx.fill();
-      ctx.fillRect(x, cy, size, size / 2);
-      break;
-    case 21:
-      // vertical strips
-      let w = size / 11;
-      for (let i = 0; i < 6; i++) {
-        ctx.fillRect(x + i * w * 2, y, w, size);
-      }
-      break;
-    case 22:
-      // vertical strips
-      let h = size / 11;
-      for (let i = 0; i < 6; i++) {
-        ctx.fillRect(x, y + i * h * 2, size, h);
-      }
-      break;
-    case 23:
-      processShape(shapes[4], x, y, size);
-      ctx.fill();
-      break;
-    case 24:
-      processShape(shapes[5], x, y, size);
-      ctx.fill();
-      break;
-    case 25:
-      processShape(shapes[6], x, y, size);
-      ctx.fill();
-      break;
-    case 26:
-      processShape(shapes[7], x, y, size);
-      ctx.fill();
-      break;
+  // trinagles
+  if (shapeFamily == 0) {
+    switch (iShape) {
+      case 0: //  _|
+        processShape(shapes[4], x, y, size);
+        ctx.fill();
+        break;
+      case 1: // |‾
+        processShape(shapes[5], x, y, size);
+        ctx.fill();
+        break;
+      case 2: // |_
+        processShape(shapes[6], x, y, size);
+        ctx.fill();
+        break;
+      case 3: // ‾|
+        processShape(shapes[7], x, y, size);
+        ctx.fill();
+        break;
+    }
+  }
+
+  // circles
+  if (shapeFamily == 1) {
+    switch (iShape) {
+      case 0: // circle
+        ctx.beginPath();
+        ctx.arc(cx, cy, size * 0.5, 0, Math.PI * 2, false);
+        ctx.fill();
+        break;
+      case 1: // donut with 1/2 radius hole
+        ctx.beginPath();
+        ctx.arc(cx, cy, size * 0.5, 0, Math.PI * 2, false);
+        ctx.arc(cx, cy, size * 0.5 * 0.5, 0, Math.PI * 2, false);
+        ctx.fill("evenodd");
+        break;
+      case 2: // donut with 3/4 radius hole
+        ctx.beginPath();
+        ctx.arc(cx, cy, size * 0.5, 0, Math.PI * 2, false);
+        ctx.arc(cx, cy, size * 0.5 * 0.75, 0, Math.PI * 2, false);
+        ctx.fill("evenodd");
+        break;
+      case 3: // donut with 1/4 radius hole
+        ctx.beginPath();
+        ctx.arc(cx, cy, size * 0.5, 0, Math.PI * 2, false);
+        ctx.arc(cx, cy, size * 0.5 * 0.25, 0, Math.PI * 2, false);
+        ctx.fill("evenodd");
+        break;
+    }
+  }
+
+  // semi-circles
+  if (shapeFamily == 2) {
+    switch (iShape) {
+      case 0:
+        // semi circles looking right
+        ctx.beginPath();
+        ctx.arc(x, cy, size * 0.5, Math.PI / 2, (Math.PI * 3) / 2, true);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(cx, cy, size * 0.5, Math.PI / 2, (Math.PI * 3) / 2, true);
+        ctx.fill();
+        break;
+      case 1:
+        // semi circles looking left
+        ctx.beginPath();
+        ctx.arc(cx, cy, size * 0.5, Math.PI / 2, (Math.PI * 3) / 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(x + size, cy, size * 0.5, Math.PI / 2, (Math.PI * 3) / 2);
+        ctx.fill();
+        break;
+      case 2:
+        // semi circles looking down
+        ctx.beginPath();
+        ctx.arc(cx, y, size * 0.5, 0, Math.PI);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(cx, cy, size * 0.5, 0, Math.PI);
+        ctx.fill();
+        break;
+      case 3:
+        // semi circles looking up
+        ctx.beginPath();
+        ctx.arc(cx, cy, size * 0.5, 0, Math.PI, true);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(cx, y + size, size * 0.5, 0, Math.PI, true);
+        ctx.fill();
+        break;
+    }
+  }
+
+  // semi-circles that look at each other
+  if (shapeFamily == 3) {
+    switch (iShape) {
+      case 0:
+        // semi-circles vertically looking at each other
+        ctx.beginPath();
+        ctx.arc(cx, y, size * 0.5, 0, Math.PI);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(cx, y + size, size * 0.5, 0, Math.PI, true);
+        ctx.fill();
+        break;
+      case 1:
+        // semi-circles horizontally looking at each other
+        ctx.beginPath();
+        ctx.arc(x, cy, size * 0.5, Math.PI / 2, (Math.PI * 3) / 2, true);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(x + size, cy, size * 0.5, Math.PI / 2, (Math.PI * 3) / 2);
+        ctx.fill();
+        break;
+    }
+  }
+
+  // squares
+  if (shapeFamily == 4) {
+    switch (iShape) {
+      case 0: // square
+        processShape(shapes[0], x, y, size); // square
+        ctx.fill();
+        break;
+      case 1: // square with cut out circle
+        processShape(shapes[0], x, y, size); // square
+        ctx.arc(cx, cy, size * 0.5 * 0.5, 0, Math.PI * 2, false);
+        ctx.fill();
+        break;
+      case 2: // diamond
+        processShape(shapes[1], x, y, size);
+        ctx.fill();
+        break;
+      case 3: // diamond with round hole
+        processShape(shapes[1], x, y, size);
+        ctx.arc(cx, cy, size * 0.5 * 0.25, 0, Math.PI * 2);
+        ctx.fill("evenodd");
+        break;
+      case 4: // square with diamond shaped hole
+        processShape(shapes[0], x, y, size);
+        processShape(
+          shapes[1],
+          x + size * 0.1464796582,
+          y + size * 0.1464796582,
+          size * 0.7071335686,
+          false,
+          false
+        );
+        ctx.fill("evenodd");
+        break;
+    }
+  }
+
+  // circle+squares
+  if (shapeFamily == 5) {
+    switch (iShape) {
+      case 0:
+        // rect + semi circle looking right
+        ctx.fillRect(x, y, size / 2, size);
+        ctx.beginPath();
+        ctx.arc(cx, cy, size * 0.5, Math.PI / 2, (Math.PI * 3) / 2, true);
+        ctx.fill();
+        break;
+      case 1:
+        // rect + semi circle looking left
+        ctx.beginPath();
+        ctx.arc(cx, cy, size * 0.5, Math.PI / 2, (Math.PI * 3) / 2);
+        ctx.fill();
+        ctx.fillRect(cx, y, size / 2, size);
+        break;
+      case 2:
+        // rect + semi circle looking down
+        ctx.fillRect(x, y, size, size / 2);
+        ctx.beginPath();
+        ctx.arc(cx, cy, size * 0.5, 0, Math.PI);
+        ctx.fill();
+        break;
+      case 3:
+        // rect + semi circle looking up
+        ctx.beginPath();
+        ctx.arc(cx, cy, size * 0.5, 0, Math.PI, true);
+        ctx.fill();
+        ctx.fillRect(x, cy, size, size / 2);
+        break;
+    }
+  }
+
+  // stripes
+  if (shapeFamily == 6) {
+    switch (iShape) {
+      case 0:
+        // vertical strips
+        let w = size / 11;
+        for (let i = 0; i < 6; i++) {
+          ctx.fillRect(x + i * w * 2, y, w, size);
+        }
+        break;
+      case 1:
+        // vertical strips
+        let h = size / 11;
+        for (let i = 0; i < 6; i++) {
+          ctx.fillRect(x, y + i * h * 2, size, h);
+        }
+        break;
+    }
+  }
+
+  // connected diamonds
+  if (shapeFamily == 7) {
+    switch (iShape) {
+      case 0:
+        processShape(shapes[2], x, y, size);
+        ctx.fill();
+        break;
+      case 1:
+        processShape(shapes[3], x, y, size);
+        ctx.fill();
+        break;
+    }
   }
 }
