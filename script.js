@@ -1,5 +1,7 @@
 let canvas, ctx;
 
+let width, height;
+
 let shapes = [
   [
     { x: 0, y: 0 },
@@ -18,10 +20,13 @@ let shapes = [
 function init() {
   canvas = document.getElementById("cover-canvas");
   ctx = canvas.getContext("2d");
+  width = canvas.offsetWidth;
+  height = canvas.offsetHeight;
 
-  let width = canvas.offsetWidth,
-    height = canvas.offsetHeight,
-    s = 40,
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, width, height);
+
+  let s = 40,
     cols = width / s,
     rows = height / s;
 
@@ -29,10 +34,12 @@ function init() {
     for (let x = 0; x < cols; x++) {
       let i = x + y * cols;
       let color = i % 2 == 0 ? "red" : "green";
-      let iShape = i % 3;
+      let iShape = i % 7;
       drawShape(x, y, s, color, "white", iShape);
     }
   }
+
+  drawGrid(cols, rows, s);
 }
 
 function processShape(
@@ -60,13 +67,29 @@ function processShape(
   }
 }
 
+function drawGrid(cols, rows, size) {
+  ctx.strokeStyle = "#666";
+  for (let x = 1; x < cols; x++) {
+    ctx.beginPath();
+    ctx.moveTo(x * size, 0);
+    ctx.lineTo(x * size, height);
+    ctx.stroke();
+  }
+  for (let y = 1; y < rows; y++) {
+    ctx.beginPath();
+    ctx.moveTo(0, y * size);
+    ctx.lineTo(width, y * size);
+    ctx.stroke();
+  }
+}
+
 function drawShape(
   ix,
   iy,
   size,
   color = "black",
   bgcolor = "white",
-  shapeIndex = 0
+  iShape = 0
 ) {
   let x = ix * size,
     y = iy * size,
@@ -74,7 +97,7 @@ function drawShape(
     cy = y + size / 2;
 
   ctx.fillStyle = color;
-  switch (shapeIndex) {
+  switch (iShape) {
     case 0: // square
       ctx.beginPath();
       processShape(shapes[0], x, y, size); // square
