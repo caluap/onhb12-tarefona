@@ -34,7 +34,7 @@ function init() {
     for (let x = 0; x < cols; x++) {
       let i = x + y * cols;
       let color = i % 2 == 0 ? "red" : "green";
-      let iShape = i % 7;
+      let iShape = i % 8;
       drawShape(x, y, s, color, "white", iShape);
     }
   }
@@ -109,30 +109,36 @@ function drawShape(
       ctx.arc(cx, cy, size * 0.5 * 0.5, 0, Math.PI * 2, false);
       ctx.fill();
       break;
-    case 2: // donut with 1/2 radius hole
+    case 2:
+      ctx.beginPath();
+      ctx.arc(cx, cy, size * 0.5, 0, Math.PI * 2, false);
+      ctx.fill();
+      break;
+      break;
+    case 3: // donut with 1/2 radius hole
       ctx.beginPath();
       ctx.arc(cx, cy, size * 0.5, 0, Math.PI * 2, false);
       ctx.arc(cx, cy, size * 0.5 * 0.5, 0, Math.PI * 2, false);
       ctx.fill("evenodd");
       break;
-    case 3: // donut with 3/4 radius hole
+    case 4: // donut with 3/4 radius hole
       ctx.beginPath();
       ctx.arc(cx, cy, size * 0.5, 0, Math.PI * 2, false);
       ctx.arc(cx, cy, size * 0.5 * 0.75, 0, Math.PI * 2, false);
       ctx.fill("evenodd");
       break;
-    case 4: // donut with 1/4 radius hole
+    case 5: // donut with 1/4 radius hole
       ctx.beginPath();
       ctx.arc(cx, cy, size * 0.5, 0, Math.PI * 2, false);
       ctx.arc(cx, cy, size * 0.5 * 0.25, 0, Math.PI * 2, false);
       ctx.fill("evenodd");
       break;
-    case 5: // diamond
+    case 6: // diamond
       ctx.beginPath();
       processShape(shapes[1], x, y, size);
       ctx.fill();
       break;
-    case 6: // square with diamond shaped hole
+    case 7: // square with diamond shaped hole
       ctx.beginPath();
       processShape(shapes[0], x, y, size, false, true);
       processShape(
