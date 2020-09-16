@@ -103,7 +103,7 @@ function init() {
 
   let family, complementaryFamily;
 
-  family = parseInt(seedString, 16) % 8;
+  family = parseInt(seedString[0], 16) % 8;
   complementaryFamily = family;
   for (let i = 0; i < seedString.length; i++) {
     if (parseInt(seedString[i], 16) % 8 != family) {
