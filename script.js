@@ -15,6 +15,22 @@ let shapes = [
     { x: 1, y: 0.5 },
     { x: 0.5, y: 0 },
   ],
+  [
+    { x: 0, y: 0 },
+    { x: 1, y: 0 },
+    { x: 0.5, y: 0.5 },
+    { x: 1, y: 1 },
+    { x: 0, y: 1 },
+    { x: 0.5, y: 0.5 },
+  ],
+  [
+    { x: 0, y: 0 },
+    { x: 0, y: 1 },
+    { x: 0.5, y: 0.5 },
+    { x: 1, y: 1 },
+    { x: 1, y: 0 },
+    { x: 0.5, y: 0.5 },
+  ],
 ];
 
 function init() {
@@ -34,7 +50,7 @@ function init() {
     for (let x = 0; x < cols; x++) {
       let i = x + y * cols;
       let color = i % 2 == 0 ? "red" : "green";
-      let iShape = i % 8;
+      let iShape = i % 11;
       drawShape(x, y, s, color, "white", iShape);
     }
   }
@@ -99,12 +115,10 @@ function drawShape(
   ctx.fillStyle = color;
   switch (iShape) {
     case 0: // square
-      ctx.beginPath();
       processShape(shapes[0], x, y, size); // square
       ctx.fill();
       break;
     case 1: // square with cut out circle
-      ctx.beginPath();
       processShape(shapes[0], x, y, size); // square
       ctx.arc(cx, cy, size * 0.5 * 0.5, 0, Math.PI * 2, false);
       ctx.fill();
@@ -134,13 +148,16 @@ function drawShape(
       ctx.fill("evenodd");
       break;
     case 6: // diamond
-      ctx.beginPath();
       processShape(shapes[1], x, y, size);
       ctx.fill();
       break;
-    case 7: // square with diamond shaped hole
-      ctx.beginPath();
-      processShape(shapes[0], x, y, size, false, true);
+    case 7: // diamond with round hole
+      processShape(shapes[1], x, y, size);
+      ctx.arc(cx, cy, size * 0.5 * 0.25, 0, Math.PI * 2);
+      ctx.fill("evenodd");
+      break;
+    case 8: // square with diamond shaped hole
+      processShape(shapes[0], x, y, size);
       processShape(
         shapes[1],
         x + size * 0.1464796582,
@@ -150,6 +167,14 @@ function drawShape(
         false
       );
       ctx.fill("evenodd");
+      break;
+    case 9:
+      processShape(shapes[2], x, y, size);
+      ctx.fill();
+      break;
+    case 10:
+      processShape(shapes[3], x, y, size);
+      ctx.fill();
       break;
   }
 }
