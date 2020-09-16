@@ -66,6 +66,19 @@ function randInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function findGetParameter(parameterName) {
+  var result = null,
+    tmp = [];
+  location.search
+    .substr(1)
+    .split("&")
+    .forEach(function (item) {
+      tmp = item.split("=");
+      if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+    });
+  return result;
+}
+
 function init() {
   canvas = document.getElementById("cover-canvas");
   ctx = canvas.getContext("2d");
@@ -79,25 +92,22 @@ function init() {
     cols = width / s,
     rows = height / s;
 
-  let randString = "";
-  let seedString =
-    "b19a6b6ca616e6b6bb11ecd04b0800a3c3a98a955af06aa8f15137dcdeaf7eff2ac66edf0c2b0b57dc985486e4bc57a3";
+  let seedString = findGetParameter("c");
+  if (!seedString) {
+    seedString = "";
+    for (let i = 0; i < rows * cols; i++) {
+      seedString += Number(randInt(0, 15)).toString(16);
+    }
+    console.log(seedString);
+  }
 
   let family, complementaryFamily;
 
-  if (seedString == "") {
-    family = randInt(0, 7);
-    complementaryFamily = family;
-    while (complementaryFamily == family) {
-      complementaryFamily = randInt(0, 7);
-    }
-  } else {
-    family = parseInt(seedString, 16) % 8;
-    complementaryFamily = family;
-    for (let i = 0; i < seedString.length; i++) {
-      if (parseInt(seedString[i], 16) % 8 != family) {
-        complementaryFamily = parseInt(seedString[i], 16) % 8;
-      }
+  family = parseInt(seedString, 16) % 8;
+  complementaryFamily = family;
+  for (let i = 0; i < seedString.length; i++) {
+    if (parseInt(seedString[i], 16) % 8 != family) {
+      complementaryFamily = parseInt(seedString[i], 16) % 8;
     }
   }
 
@@ -106,15 +116,7 @@ function init() {
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
       let i = x + y * cols;
-      let char;
-
-      if (seedString == "") {
-        char = randInt(0, 15);
-      } else {
-        char = parseInt(seedString[i % seedString.length], 16);
-      }
-
-      randString += Number(char).toString(16);
+      let char = parseInt(seedString[i % seedString.length], 16);
 
       if ([0, 1].indexOf(char) != -1) {
         continue;
@@ -140,8 +142,6 @@ function init() {
       drawShape(x, y, s, color, currentFamily, char);
     }
   }
-
-  console.log(randString);
 
   // drawGrid(cols, rows, s);
 }
