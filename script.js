@@ -50,7 +50,7 @@ function init() {
     for (let x = 0; x < cols; x++) {
       let i = x + y * cols;
       let color = i % 2 == 0 ? "red" : "green";
-      let iShape = i % 21;
+      let iShape = i % 23;
       drawShape(x, y, s, color, "white", iShape);
     }
   }
@@ -257,6 +257,20 @@ function drawShape(
       ctx.arc(cx, cy, size * 0.5, 0, Math.PI, true);
       ctx.fill();
       ctx.fillRect(x, cy, size, size / 2);
+      break;
+    case 21:
+      // vertical strips
+      let w = size / 11;
+      for (let i = 0; i < 6; i++) {
+        ctx.fillRect(x + i * w * 2, y, w, size);
+      }
+      break;
+    case 22:
+      // vertical strips
+      let h = size / 11;
+      for (let i = 0; i < 6; i++) {
+        ctx.fillRect(x, y + i * h * 2, size, h);
+      }
       break;
   }
 }
