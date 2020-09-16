@@ -291,13 +291,13 @@ function drawShape(ix, iy, size, color = "black", shapeFamily = 0, iShape = 0) {
         // rect + semi circle looking right
         ctx.fillRect(x, y, size / 2, size);
         ctx.beginPath();
-        ctx.arc(cx, cy, size * 0.5, Math.PI / 2, (Math.PI * 3) / 2, true);
+        ctx.arc(cx, cy, size * 0.5, 0, Math.PI * 2, true);
         ctx.fill();
         break;
       case 1:
         // rect + semi circle looking left
         ctx.beginPath();
-        ctx.arc(cx, cy, size * 0.5, Math.PI / 2, (Math.PI * 3) / 2);
+        ctx.arc(cx, cy, size * 0.5, 0, Math.PI * 2);
         ctx.fill();
         ctx.fillRect(cx, y, size / 2, size);
         break;
@@ -305,13 +305,13 @@ function drawShape(ix, iy, size, color = "black", shapeFamily = 0, iShape = 0) {
         // rect + semi circle looking down
         ctx.fillRect(x, y, size, size / 2);
         ctx.beginPath();
-        ctx.arc(cx, cy, size * 0.5, 0, Math.PI);
+        ctx.arc(cx, cy, size * 0.5, 0, Math.PI * 2);
         ctx.fill();
         break;
       case 3:
         // rect + semi circle looking up
         ctx.beginPath();
-        ctx.arc(cx, cy, size * 0.5, 0, Math.PI, true);
+        ctx.arc(cx, cy, size * 0.5, 0, Math.PI * 2, true);
         ctx.fill();
         ctx.fillRect(x, cy, size, size / 2);
         break;
