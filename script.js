@@ -2,6 +2,35 @@ let canvas, ctx;
 
 let width, height;
 
+let mainColors = ["#babec4", "#a9acaf"];
+let highlightColors = [
+  "#be1e2d",
+  "#c2b59b",
+  "#662d91",
+  "#f5ba3d",
+  "#ffdd00",
+  "#e3038c",
+  "#8dc63f",
+  "#37673f",
+  "#f26422",
+  "#ffed96",
+  "#a97c50",
+  "#8299ce",
+  "#abc8e9",
+  "#f59cb0",
+  "#db5c87",
+  "#00bbd6",
+  "#603913",
+  "#414042",
+  "#0083ca",
+  "#00a651",
+  "#d7e1f2",
+  "#3b4d81",
+  "#65c298",
+  "#ed1c24",
+  "#00a9a3",
+];
+
 let shapes = [
   [
     { x: 0, y: 0 },
@@ -85,7 +114,7 @@ function init() {
   width = canvas.offsetWidth;
   height = canvas.offsetHeight;
 
-  ctx.fillStyle = "#fff";
+  ctx.fillStyle = "#f1f2f3";
   ctx.fillRect(0, 0, width, height);
 
   let s = 75,
@@ -101,6 +130,18 @@ function init() {
     console.log(seedString);
   }
 
+  let selectedHlColors = [];
+  let nC = (parseInt(seedString[3], 16) % 3) + 1;
+  let iC = 0;
+  while (selectedHlColors.length < nC && iC < seedString.length) {
+    let tempColor =
+      highlightColors[parseInt(seedString[iC], 16) % highlightColors.length];
+    if (selectedHlColors.indexOf(tempColor) == -1) {
+      selectedHlColors.push(tempColor);
+    }
+    iC++;
+  }
+
   let family, complementaryFamily;
 
   family = parseInt(seedString[0], 16) % 8;
@@ -111,14 +152,12 @@ function init() {
     }
   }
 
-  let mainColors = ["red", "green"];
-
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
       let i = x + y * cols;
       let char = parseInt(seedString[i % seedString.length], 16);
 
-      if ([0, 1].indexOf(char) != -1) {
+      if ([0, 1, 2].indexOf(char) != -1) {
         continue;
       }
 
@@ -127,14 +166,14 @@ function init() {
       ).toString(16);
 
       let color;
-      if (["0", "1"].indexOf(helperHash[1]) != -1) {
-        color = "pink";
+      if (["0", "1", "2"].indexOf(helperHash[2]) != -1) {
+        color = selectedHlColors[i % selectedHlColors.length];
       } else {
         color = mainColors[i % mainColors.length];
       }
 
       let currentFamily;
-      if (["0", "1"].indexOf(helperHash[2]) != -1) {
+      if (["0"].indexOf(helperHash[3]) != -1) {
         currentFamily = complementaryFamily;
       } else {
         currentFamily = family;
