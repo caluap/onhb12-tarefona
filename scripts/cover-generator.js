@@ -108,18 +108,24 @@ function findGetParameter(parameterName) {
   return result;
 }
 
-function init() {
+function coverInit() {
   canvas = document.getElementById("cover-canvas");
   ctx = canvas.getContext("2d");
   width = canvas.offsetWidth;
   height = canvas.offsetHeight;
 
-  ctx.fillStyle = "#f1f2f3";
+  let s = 56,
+    cols = 8,
+    rows = 12,
+    margin = 0.125 * s;
+
+  ctx.fillStyle = "#fff";
   ctx.fillRect(0, 0, width, height);
 
-  let s = 75,
-    cols = width / s,
-    rows = height / s;
+  ctx.fillStyle = "#f1f2f3";
+  ctx.fillRect(margin, margin, width - 2 * margin, height - 2 * margin);
+
+  ctx.translate(margin, margin);
 
   let seedString = findGetParameter("c");
   if (!seedString) {
@@ -157,7 +163,7 @@ function init() {
       let i = x + y * cols;
       let char = parseInt(seedString[i % seedString.length], 16);
 
-      if ([0, 1, 2].indexOf(char) != -1) {
+      if ([0, 1, 2, 3, 4, 5, 6].indexOf(char) != -1) {
         continue;
       }
 
@@ -178,6 +184,7 @@ function init() {
       } else {
         currentFamily = family;
       }
+
       drawShape(x, y, s, color, currentFamily, char);
     }
   }
