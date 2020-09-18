@@ -1,6 +1,11 @@
 let canvas, ctx;
 
-let width, height;
+let width,
+  height,
+  s = 56,
+  cols = 8,
+  rows = 12,
+  margin = 0.125 * s;
 
 let mainColors = ["#babec4", "#a9acaf"];
 let highlightColors = [
@@ -82,6 +87,20 @@ let shapes = [
   ],
 ];
 
+// https://stackoverflow.com/a/7838871/
+CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
+  if (w < 2 * r) r = w / 2;
+  if (h < 2 * r) r = h / 2;
+  this.beginPath();
+  this.moveTo(x + r, y);
+  this.arcTo(x + w, y, x + w, y + h, r);
+  this.arcTo(x + w, y + h, x, y + h, r);
+  this.arcTo(x, y + h, x, y, r);
+  this.arcTo(x, y, x + w, y, r);
+  this.closePath();
+  return this;
+};
+
 function hash(str) {
   return Array.from(str).reduce(
     (hash, char) => 0 | (31 * hash + char.charCodeAt(0)),
@@ -113,11 +132,6 @@ function coverInit() {
   ctx = canvas.getContext("2d");
   width = canvas.offsetWidth;
   height = canvas.offsetHeight;
-
-  let s = 56,
-    cols = 8,
-    rows = 12,
-    margin = 0.125 * s;
 
   ctx.fillStyle = "#fff";
   ctx.fillRect(0, 0, width, height);
@@ -190,6 +204,7 @@ function coverInit() {
   }
 
   // drawGrid(cols, rows, s);
+  drawLabel("Now This is Getting Ridiculous");
 }
 
 function processShape(
@@ -222,14 +237,72 @@ function drawGrid(cols, rows, size) {
   for (let x = 1; x < cols; x++) {
     ctx.beginPath();
     ctx.moveTo(x * size, 0);
-    ctx.lineTo(x * size, height);
+    ctx.lineTo(x * size, rows * size);
     ctx.stroke();
   }
   for (let y = 1; y < rows; y++) {
     ctx.beginPath();
     ctx.moveTo(0, y * size);
-    ctx.lineTo(width, y * size);
+    ctx.lineTo(cols * size, y * size);
     ctx.stroke();
+  }
+}
+
+function drawLabel(teamName = "Os Mentecaptos Batutas") {
+  ctx.save();
+  ctx.fillStyle = "#f1f0eb";
+  ctx.shadowBlur = 2;
+  ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
+  ctx.roundRect(2.5 * s, 9.5 * s, 5 * s, 2 * s, s / 8).fill();
+  ctx.restore();
+  ctx.strokeStyle = "#ff0000";
+  ctx.lineWidth = 0.5;
+
+  let M = 0.125,
+    m = M / 4;
+  for (let i = 0; i < 2; i++) {
+    let x = (2.5 + M) * s + i * m * s,
+      y = (9.5 + M) * s + i * m * s,
+      w = (5 - 2 * M) * s - i * m * s * 2,
+      h = (2 - 2 * M) * s - i * m * s * 2;
+    ctx.roundRect(x, y, w, h, s / 8).stroke();
+  }
+
+  ctx.fillStyle = "#25408f";
+  ctx.textBaseline = "top";
+  ctx.font = "21px Supermarker";
+  ctx.fillText("Caderno de Crônicas", (2.5 + 2 * M) * s, (9.5 + 2 * M) * s);
+
+  teamName = "Equipe " + teamName;
+  let maxWidth = (5 - 4 * M) * s,
+    words = teamName.split(" "),
+    lines = 0,
+    currentLine = "";
+
+  for (let i = 0; i < words.length; i++) {
+    let w = ctx.measureText(currentLine + " " + words[i]).width;
+    if (w > maxWidth) {
+      // prints current line
+      if (lines < 2) {
+        ctx.fillText(
+          currentLine,
+          (2.5 + 2 * M) * s,
+          (9.5 + 0.5 + 2 * M) * s + lines * 0.5 * s
+        );
+      }
+      lines++;
+      currentLine = words[i] + " ";
+    } else {
+      currentLine += words[i] + " ";
+    }
+  }
+
+  if (lines < 2) {
+    ctx.fillText(
+      currentLine,
+      (2.5 + 2 * M) * s,
+      (9.5 + 0.5 + 2 * M) * s + lines * 0.5 * s
+    );
   }
 }
 
