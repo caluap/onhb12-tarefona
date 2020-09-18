@@ -1,5 +1,7 @@
 let canvas, ctx;
 
+let seedString;
+
 let width,
   height,
   s = 56,
@@ -141,7 +143,7 @@ function coverInit() {
 
   ctx.translate(margin, margin);
 
-  let seedString = findGetParameter("c");
+  seedString = findGetParameter("c");
   if (!seedString) {
     seedString = "";
     for (let i = 0; i < rows * cols; i++) {
@@ -249,17 +251,20 @@ function drawGrid(cols, rows, size) {
 }
 
 function drawLabel(teamName = "Os Mentecaptos Batutas") {
+  let angle = 0.5 - parseInt(seedString[0], 16) / 16;
+
+  ctx.rotate((angle * Math.PI) / 180);
   ctx.save();
   ctx.fillStyle = "#f1f0eb";
   ctx.shadowBlur = 2;
   ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
-  ctx.roundRect(2.5 * s, 9.5 * s, 5 * s, 2 * s, s / 8).fill();
+  ctx.roundRect(2.5 * s, 9.5 * s, 5 * s, 2 * s, s / 6).fill();
   ctx.restore();
   ctx.strokeStyle = "#ff0000";
   ctx.lineWidth = 0.5;
 
   let M = 0.125,
-    m = M / 4;
+    m = M / 3;
   for (let i = 0; i < 2; i++) {
     let x = (2.5 + M) * s + i * m * s,
       y = (9.5 + M) * s + i * m * s,
@@ -268,13 +273,14 @@ function drawLabel(teamName = "Os Mentecaptos Batutas") {
     ctx.roundRect(x, y, w, h, s / 8).stroke();
   }
 
-  ctx.fillStyle = "#25408f";
+  ctx.fillStyle = "#8f2540";
   ctx.textBaseline = "top";
   ctx.font = "21px Supermarker";
-  ctx.fillText("Caderno de Crônicas", (2.5 + 2 * M) * s, (9.5 + 2 * M) * s);
+  ctx.fillText("Caderno de Crônicas", (2.55 + 2 * M) * s, (9.55 + 2 * M) * s);
 
+  ctx.fillStyle = "#25408f";
   teamName = "Equipe " + teamName;
-  let maxWidth = (5 - 4 * M) * s,
+  let maxWidth = (5.1 - 4 * M) * s,
     words = teamName.split(" "),
     lines = 0,
     currentLine = "";
@@ -286,8 +292,8 @@ function drawLabel(teamName = "Os Mentecaptos Batutas") {
       if (lines < 2) {
         ctx.fillText(
           currentLine,
-          (2.5 + 2 * M) * s,
-          (9.5 + 0.5 + 2 * M) * s + lines * 0.5 * s
+          (2.55 + 2 * M) * s,
+          (9.55 + 0.5 + 2 * M) * s + lines * 0.5 * s
         );
       }
       lines++;
@@ -300,8 +306,8 @@ function drawLabel(teamName = "Os Mentecaptos Batutas") {
   if (lines < 2) {
     ctx.fillText(
       currentLine,
-      (2.5 + 2 * M) * s,
-      (9.5 + 0.5 + 2 * M) * s + lines * 0.5 * s
+      (2.55 + 2 * M) * s,
+      (9.55 + 0.5 + 2 * M) * s + lines * 0.5 * s
     );
   }
 }
