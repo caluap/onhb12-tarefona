@@ -1,11 +1,11 @@
 @import "./reset.scss";
+@import "./notebook.scss";
 
 body {
   background: #eee;
   padding: 2rem;
-}
-
-canvas {
-  background: white;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  min-height: 100vh;
+  display: grid;
+  align-items: center;
+  justify-content: center;
 }
