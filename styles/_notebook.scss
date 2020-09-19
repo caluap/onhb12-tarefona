@@ -89,3 +89,23 @@ canvas {
     );
   }
 }
+
+.page-text-box {
+  position: absolute;
+  left: 1.5rem;
+  right: 1.5rem;
+  top: 2.1 * $line;
+  bottom: $line * 2/3;
+
+  overflow: hidden;
+
+  p {
+    font-size: 19px;
+    line-height: $line;
+    color: #25408f;
+    mix-blend-mode: multiply;
+    & + p {
+      text-indent: 1ch;
+    }
+  }
+}

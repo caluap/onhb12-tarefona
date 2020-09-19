@@ -273,9 +273,10 @@ function drawLabel(teamName = "Os Mentecaptos Batutas") {
     ctx.roundRect(x, y, w, h, s / 8).stroke();
   }
 
-  ctx.fillStyle = "#8f2540";
+  // ctx.fillStyle = "#8f2540";
+  ctx.fillStyle = "#25408f";
   ctx.textBaseline = "top";
-  ctx.font = "21px Supermarker";
+  ctx.font = "19px Supermarker";
   ctx.fillText("Caderno de Crônicas", (2.55 + 2 * M) * s, (9.55 + 2 * M) * s);
 
   ctx.fillStyle = "#25408f";
