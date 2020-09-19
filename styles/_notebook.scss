@@ -1,6 +1,9 @@
 $ratio: 1.4848484848;
 $width: 462px;
 $height: $width * $ratio;
+
+$line: ceil($height / 23);
+
 $paper-color: #f1f0eb;
 
 body {
@@ -29,16 +32,60 @@ canvas {
   background-color: $paper-color;
   position: absolute;
 
+  cursor: pointer;
+
   height: $height;
   width: $width;
   top: 0;
 
+  // lines
+  &:not(:first-child):before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: $line;
+    bottom: 0;
+
+    background-image: repeating-linear-gradient(
+      0deg,
+      #b6b6b680,
+      transparent 2px,
+      transparent $line
+    );
+  }
+
   &:nth-child(odd) {
+    &,
+    canvas {
+      border-radius: 0.75rem;
+      border-top-left-radius: 0.25rem;
+      border-bottom-left-radius: 0.25rem;
+    }
+
     transform-origin: top left;
     left: 50%;
+
+    background-image: linear-gradient(
+      to left,
+      #f1f0eb,
+      #f1f0eb 80%,
+      #e7e6e0 100%
+    );
   }
   &:nth-child(even) {
+    border-radius: 0.75rem;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+
     transform-origin: top right;
     right: 50%;
+
+    background-image: linear-gradient(
+      to right,
+      #f1f0eb,
+      #f1f0eb 60%,
+      #dbdad1 100%
+    );
   }
 }
