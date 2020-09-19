@@ -9,6 +9,9 @@ let width,
   rows = 12,
   margin = 0.125 * s;
 
+let logoX = 0,
+  logoY = 11;
+
 let mainColors = ["#babec4", "#a9acaf"];
 let highlightColors = [
   "#be1e2d",
@@ -176,6 +179,10 @@ function coverInit() {
 
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
+      // logo
+      if (y == logoY && x == logoX) {
+        continue;
+      }
       let i = x + y * cols;
       let char = parseInt(seedString[i % seedString.length], 16);
 
@@ -206,6 +213,7 @@ function coverInit() {
   }
 
   // drawGrid(cols, rows, s);
+  drawLogo();
   drawLabel("Now This is Getting Ridiculous");
 }
 
@@ -311,6 +319,28 @@ function drawLabel(teamName = "Os Mentecaptos Batutas") {
       (9.55 + 0.5 + 2 * M) * s + lines * 0.5 * s
     );
   }
+
+  ctx.rotate((-angle * Math.PI) / 180);
+}
+
+function drawLogo() {
+  let img = new Image();
+  img.src = "../img/onhb.svg";
+  img.addEventListener(
+    "load",
+    () => {
+      // ctx.fillStyle = "#ffffff";
+      // ctx.fillRect(s * 0, s * 11, s, s);
+      ctx.drawImage(
+        img,
+        s * (0.2 + logoX),
+        s * (0.2 + logoY),
+        s * 0.6,
+        s * 0.6
+      );
+    },
+    false
+  );
 }
 
 function drawShape(ix, iy, size, color = "black", shapeFamily = 0, iShape = 0) {
