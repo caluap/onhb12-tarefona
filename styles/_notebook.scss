@@ -1,22 +1,32 @@
 $ratio: 1.4848484848;
 $width: 462px;
 $height: $width * $ratio;
+$paper-color: #f1f0eb;
 
 #diary {
-  background: red;
   width: $width * 2;
   height: $height;
 
   position: relative;
+
+  perspective: 200cm;
+  transform-style: preserve-3d;
+
+  .page:not(#cover) {
+    display: none;
+  }
 }
 
 canvas {
   background: white;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
 }
 
 .page {
+  background-color: $paper-color;
   position: absolute;
+
+  height: $height;
+  width: $width;
   top: 0;
 
   &:nth-child(odd) {
@@ -26,11 +36,5 @@ canvas {
   &:nth-child(even) {
     transform-origin: top right;
     right: 50%;
-  }
-
-  &.debugger-page {
-    background: purple;
-    width: $width;
-    height: $height;
   }
 }
