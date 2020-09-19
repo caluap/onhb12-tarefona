@@ -4,15 +4,26 @@ $height: $width * $ratio;
 
 $line: ceil($height / 23);
 
+$inner-margin: 2.5rem;
+$outer-margin: 1.75rem;
+
 $paper-color: #f1f0eb;
 
 body {
   overflow-y: scroll;
 }
 
+.ballpoint-pen {
+  font-size: 19px;
+  color: #25408f;
+  line-height: $line;
+}
+
 #notebook {
   width: $width * 2;
   height: $height;
+
+  counter-reset: page_num;
 
   position: relative;
 
@@ -21,7 +32,8 @@ body {
   transform: rotate3d(1, 0, 0, 0.1deg); // 3d accelerated rendering!
 
   .page:not(#cover) {
-    display: none;
+    // display: none;
+    visibility: hidden;
   }
 }
 
@@ -30,7 +42,6 @@ canvas {
 }
 
 .page {
-  background-color: $paper-color;
   position: absolute;
 
   cursor: pointer;
@@ -39,21 +50,39 @@ canvas {
   width: $width;
   top: 0;
 
-  // lines
-  &:not(:first-child):before {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: $line;
-    bottom: 0;
+  // not cover
+  &:nth-child(n + 3) {
+    // lines
+    &:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: $line;
+      bottom: $line * 3/2;
 
-    background-image: repeating-linear-gradient(
-      0deg,
-      #b6b6b680,
-      transparent 2px,
-      transparent $line
-    );
+      background-image: repeating-linear-gradient(
+        0deg,
+        #b6b6b680,
+        transparent 2px,
+        transparent $line
+      );
+    }
+
+    // page numbering
+    counter-increment: page_num;
+    &:after {
+      position: absolute;
+      content: counter(page_num);
+      top: 0.5 * $line;
+      @extend .ballpoint-pen;
+    }
+    &:nth-child(odd):after {
+      right: $outer-margin;
+    }
+    &:nth-child(even):after {
+      left: $outer-margin;
+    }
   }
 
   &:nth-child(odd) {
@@ -81,6 +110,7 @@ canvas {
 
     transform-origin: top right;
     right: 50%;
+    border-right: 1px solid #d5d5d5;
 
     background-image: linear-gradient(
       to right,
@@ -89,21 +119,37 @@ canvas {
       #dbdad1 100%
     );
   }
+  &:nth-child(2) {
+    background-color: white;
+    background-image: linear-gradient(
+      to right,
+      #fff,
+      #f0f0f0 80%,
+      #e5e5e5 100%
+    );
+  }
+  &:nth-child(n + 3) {
+    background-color: $paper-color;
+  }
 }
 
 .page-text-box {
   position: absolute;
-  left: 1.5rem;
-  right: 1.5rem;
-  top: 2.1 * $line;
-  bottom: $line * 2/3;
+  @at-root :nth-child(odd) & {
+    left: $inner-margin;
+    right: $outer-margin;
+  }
+  @at-root :nth-child(even) & {
+    left: $outer-margin;
+    right: $inner-margin;
+  }
+  top: 1.6 * $line;
+  bottom: 4/3 * $line;
 
   overflow: hidden;
 
   p {
-    font-size: 19px;
-    line-height: $line;
-    color: #25408f;
+    @extend .ballpoint-pen;
     mix-blend-mode: multiply;
     & + p {
       text-indent: 1ch;
