@@ -4,10 +4,12 @@ $height: $width * $ratio;
 
 $line: ceil($height / 23);
 
-$inner-margin: 2.5rem;
-$outer-margin: 1.75rem;
+$inner-margin: 2.25rem;
+$outer-margin: 2rem;
 
 $paper-color: #f1f0eb;
+$blue-ballpoint: #1b339c;
+$black-ballpoint: #223066de;
 
 body {
   overflow-y: scroll;
@@ -15,7 +17,7 @@ body {
 
 .ballpoint-pen {
   font-size: 19px;
-  color: #25408f;
+  color: $black-ballpoint;
   line-height: $line;
 }
 
@@ -56,14 +58,14 @@ canvas {
     &:before {
       content: "";
       position: absolute;
-      left: 0;
-      right: 0;
+      left: 1.75rem;
+      right: 1.75rem;
       top: $line;
       bottom: $line * 3/2;
 
       background-image: repeating-linear-gradient(
         0deg,
-        #b6b6b680,
+        #b6b6b6a6,
         transparent 2px,
         transparent $line
       );
@@ -76,6 +78,7 @@ canvas {
       content: counter(page_num);
       top: 0.5 * $line;
       @extend .ballpoint-pen;
+      color: $blue-ballpoint;
     }
     &:nth-child(odd):after {
       right: $outer-margin;
@@ -83,6 +86,9 @@ canvas {
     &:nth-child(even):after {
       left: $outer-margin;
     }
+    // &:nth-child(3):after {
+    //   visibility: hidden;
+    // }
   }
 
   &:nth-child(odd) {
@@ -148,11 +154,57 @@ canvas {
 
   overflow: hidden;
 
-  p {
+  p,
+  h1,
+  h2 {
     @extend .ballpoint-pen;
     mix-blend-mode: multiply;
-    & + p {
-      text-indent: 1ch;
+  }
+
+  .theme {
+    color: $blue-ballpoint;
+    margin: 0 0 $line 0;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  p.epigraph {
+    margin: 2 * $line 0 3 * $line 33%;
+    color: $blue-ballpoint;
+  }
+  h1 {
+    color: $blue-ballpoint;
+    font-weight: bold;
+    span.title {
+      background: linear-gradient(
+          104deg,
+          rgba(130, 255, 173, 0) 0.9%,
+          rgba(130, 255, 173, 1.25) 2.4%,
+          rgba(130, 255, 173, 0.5) 5.8%,
+          rgba(130, 255, 173, 0.1) 93%,
+          rgba(130, 255, 173, 0.7) 96%,
+          rgba(130, 255, 1732, 0) 98%
+        ),
+        linear-gradient(
+          183deg,
+          rgba(130, 255, 173, 0) 0%,
+          rgba(130, 255, 173, 0.3) 7.9%,
+          rgba(130, 255, 173, 0) 15%
+        );
+      padding: 0.6em 13.7px;
+      -webkit-box-decoration-break: clone;
+      margin: 0;
+      border-radius: 7.5px;
+      text-shadow: -12px 12px 9.8px rgba(130, 255, 173, 0.7),
+        21px -18.1px 7.3px rgba(255, 255, 255, 1),
+        -18.1px -27.3px 30px rgba(255, 255, 255, 1);
     }
+    span.authorship {
+      font-weight: normal;
+      color: $black-ballpoint;
+    }
+  }
+  p:not(.epigraph) + p:not(.epigraph) {
+    text-indent: 2ch;
   }
 }

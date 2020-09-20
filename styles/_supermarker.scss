@@ -3,6 +3,15 @@
   font-style: normal;
   font-display: swap;
   font-weight: 400;
-  src: url("../fonts/SupermarkerTrial-Regular.woff2") format("woff2"),
-    url("../fonts/SupermarkerTrial-Regular.woff") format("woff");
+  src: url("../fonts/SupermarkerTrial-Light.woff2") format("woff2"),
+    url("../fonts/SupermarkerTrial-Light.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Supermarker";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url("../fonts/SupermarkerTrial-Bold.woff2") format("woff2"),
+    url("../fonts/SupermarkerTrial-Bold.woff") format("woff");
 }

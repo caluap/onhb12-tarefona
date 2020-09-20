@@ -259,7 +259,7 @@ function drawGrid(cols, rows, size) {
 }
 
 function drawLabel(teamName = "Os Mentecaptos Batutas") {
-  let angle = 0.5 - parseInt(seedString[0], 16) / 16;
+  let angle = 1 - (2 * parseInt(seedString[0], 16)) / 16;
 
   ctx.rotate((angle * Math.PI) / 180);
   ctx.save();
@@ -282,14 +282,14 @@ function drawLabel(teamName = "Os Mentecaptos Batutas") {
   }
 
   // ctx.fillStyle = "#8f2540";
-  ctx.fillStyle = "#25408f";
+  ctx.fillStyle = "#1b339c";
   ctx.textBaseline = "top";
   ctx.font = "19px Supermarker";
   ctx.fillText("Caderno de Crônicas", (2.55 + 2 * M) * s, (9.55 + 2 * M) * s);
 
-  ctx.fillStyle = "#25408f";
+  ctx.fillStyle = "#223066";
   teamName = "Equipe " + teamName;
-  let maxWidth = (5.1 - 4 * M) * s,
+  let maxWidth = (5 - 4 * M) * s,
     words = teamName.split(" "),
     lines = 0,
     currentLine = "";
