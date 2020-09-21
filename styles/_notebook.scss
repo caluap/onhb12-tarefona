@@ -15,6 +15,36 @@ body {
   overflow-y: scroll;
 }
 
+$green-marker-pen: #82ffad;
+$blue-marker-pen: #a0eff5;
+$pink-marker-pen: #fdb3e1;
+$yellow-marker-pen: #ffef97;
+
+@mixin marker($marker-pen) {
+  background: linear-gradient(
+      104deg,
+      transparentize($marker-pen, 1 - 0) 0.9%,
+      transparentize($marker-pen, 1 - 1) 2.4%,
+      transparentize($marker-pen, 1 - 0.5) 5.8%,
+      transparentize($marker-pen, 1 - 0.1) 93%,
+      transparentize($marker-pen, 1 - 0.7) 96%,
+      transparentize($marker-pen, 1 - 0) 98%
+    ),
+    linear-gradient(
+      183deg,
+      transparentize($marker-pen, 1 - 0) 0%,
+      transparentize($marker-pen, 1 - 0.3) 7.9%,
+      transparentize($marker-pen, 1 - 0) 15%
+    );
+  padding: 0.6em 13.7px;
+  box-decoration-break: clone;
+  margin: 0;
+  border-radius: 7.5px;
+  text-shadow: -12px 12px 9.8px transparentize($marker-pen, 1 - 0.7),
+    21px -18.1px 7.3px rgba(255, 255, 255, 1),
+    -18.1px -27.3px 30px rgba(255, 255, 255, 1);
+}
+
 .ballpoint-pen {
   font-size: 19px;
   color: $black-ballpoint;
@@ -176,28 +206,7 @@ canvas {
     color: $blue-ballpoint;
     font-weight: bold;
     span.title {
-      background: linear-gradient(
-          104deg,
-          rgba(130, 255, 173, 0) 0.9%,
-          rgba(130, 255, 173, 1.25) 2.4%,
-          rgba(130, 255, 173, 0.5) 5.8%,
-          rgba(130, 255, 173, 0.1) 93%,
-          rgba(130, 255, 173, 0.7) 96%,
-          rgba(130, 255, 1732, 0) 98%
-        ),
-        linear-gradient(
-          183deg,
-          rgba(130, 255, 173, 0) 0%,
-          rgba(130, 255, 173, 0.3) 7.9%,
-          rgba(130, 255, 173, 0) 15%
-        );
-      padding: 0.6em 13.7px;
-      -webkit-box-decoration-break: clone;
-      margin: 0;
-      border-radius: 7.5px;
-      text-shadow: -12px 12px 9.8px rgba(130, 255, 173, 0.7),
-        21px -18.1px 7.3px rgba(255, 255, 255, 1),
-        -18.1px -27.3px 30px rgba(255, 255, 255, 1);
+      @include marker($pink-marker-pen);
     }
     span.authorship {
       font-weight: normal;
