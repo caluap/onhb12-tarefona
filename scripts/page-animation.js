@@ -2,7 +2,7 @@ let diary = document.getElementById("diary");
 let pages = document.querySelectorAll(".page");
 
 let animating = false;
-let animDuration = 2000;
+let animDuration = 1500;
 
 for (let i = 0; i < pages.length; i++) {
   pages[i].addEventListener(
@@ -29,11 +29,11 @@ function advancePage(pages, i) {
       begin: function (anim) {
         pages[i].style.zIndex = "100";
         if (i + 2 < pages.length) {
-          pages[i + 2].style.display = "block";
+          pages[i + 2].style.visibility = "visible";
         }
       },
       complete: function (anim) {
-        pages[i].style.display = "none";
+        pages[i].style.visibility = "hidden";
         pages[i].style.zIndex = "1";
         if (i + 1 < pages.length) {
           anime({
@@ -42,11 +42,11 @@ function advancePage(pages, i) {
             duration: animDuration / 2,
             easing: "easeOutQuad",
             begin: function (anim) {
-              pages[i + 1].style.display = "block";
+              pages[i + 1].style.visibility = "visible";
             },
             complete: function (anim) {
               if (i - 1 >= 0) {
-                pages[i - 1].style.display = "none";
+                pages[i - 1].style.visibility = "hidden";
               }
               animating = false;
             },
@@ -68,14 +68,14 @@ function retreatPage(pages, i) {
       begin: function (anim) {
         pages[i].style.zIndex = "100";
         if (i - 2 >= 0) {
-          pages[i - 2].style.display = "block";
+          pages[i - 2].style.visibility = "visible";
         }
       },
       complete: function (anim) {
-        pages[i].style.display = "none";
+        pages[i].style.visibility = "hidden";
         pages[i].style.zIndex = "1";
         if (i - 1 >= 0) {
-          pages[i - 1].style.display = "block";
+          pages[i - 1].style.visibility = "visible";
           pages[i - 1].style.display = "100";
           anime({
             targets: pages[i - 1],
@@ -84,7 +84,7 @@ function retreatPage(pages, i) {
             easing: "easeOutQuad",
             complete: function (anim) {
               if (i + 1 < pages.length) {
-                pages[i + 1].style.display = "none";
+                pages[i + 1].style.visibility = "hidden";
               }
               animating = false;
             },
