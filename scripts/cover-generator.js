@@ -132,7 +132,7 @@ function findGetParameter(parameterName) {
   return result;
 }
 
-function coverInit() {
+function coverInit(seed) {
   canvas = document.getElementById("cover-canvas");
   ctx = canvas.getContext("2d");
   width = canvas.offsetWidth;
@@ -146,14 +146,7 @@ function coverInit() {
 
   ctx.translate(margin, margin);
 
-  seedString = findGetParameter("c");
-  if (!seedString) {
-    seedString = "";
-    for (let i = 0; i < rows * cols; i++) {
-      seedString += Number(randInt(0, 15)).toString(16);
-    }
-    console.log(seedString);
-  }
+  seedString = seed;
 
   let selectedHlColors = [];
   let nC = (parseInt(seedString[3], 16) % 3) + 1;
