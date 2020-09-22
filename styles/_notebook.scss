@@ -41,8 +41,8 @@ $yellow-marker-pen: #ffef97;
   box-decoration-break: clone;
   margin: 0;
   border-radius: 2.5px;
-  text-shadow: -2px 2px 9.8px rgba(253, 179, 225, 0.7), 11px -8.1px 7.3px #fff,
-    -7.1px -17.3px 30px #fff;
+  text-shadow: -2px 2px 9.8px transparentize($marker-pen, 1 - 0.7),
+    11px -8.1px 7.3px #fff, -7.1px -17.3px 30px #fff;
 }
 
 .ballpoint-pen {
@@ -197,17 +197,31 @@ canvas {
 
   .theme {
     color: $blue-ballpoint;
-    margin: 0 0 $line 0;
+    padding: 0 0 $line 0;
     text-align: center;
-    text-transform: uppercase;
+    font-weight: bold;
   }
 
   p.epigraph {
-    padding: $line 0 3 * $line 0;
-    text-align: center;
-    color: $blue-ballpoint;
+    color: $black-ballpoint;
+    .epigraph-author {
+      display: block;
+      text-align: right;
+      &:before {
+        content: "— ";
+      }
+    }
+    &:before {
+      position: relative;
+      top: -1/3 * $line;
+      content: "* * *";
+      display: block;
+      text-align: center;
+      padding: $line 0;
+    }
   }
   h1 {
+    padding: $line 0;
     color: $blue-ballpoint;
     font-weight: bold;
     text-align: center;
@@ -217,7 +231,6 @@ canvas {
     span.authorship {
       font-weight: normal;
       display: block;
-      color: $black-ballpoint;
     }
   }
   p:not(.epigraph) + p:not(.epigraph) {
