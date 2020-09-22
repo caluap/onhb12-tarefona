@@ -37,13 +37,12 @@ $yellow-marker-pen: #ffef97;
       transparentize($marker-pen, 1 - 0.3) 7.9%,
       transparentize($marker-pen, 1 - 0) 15%
     );
-  padding: 0.6em 13.7px;
+  padding: 0.5em 5px 0.4em 15px;
   box-decoration-break: clone;
   margin: 0;
-  border-radius: 7.5px;
-  text-shadow: -12px 12px 9.8px transparentize($marker-pen, 1 - 0.7),
-    21px -18.1px 7.3px rgba(255, 255, 255, 1),
-    -18.1px -27.3px 30px rgba(255, 255, 255, 1);
+  border-radius: 2.5px;
+  text-shadow: -2px 2px 9.8px rgba(253, 179, 225, 0.7), 11px -8.1px 7.3px #fff,
+    -7.1px -17.3px 30px #fff;
 }
 
 .ballpoint-pen {
