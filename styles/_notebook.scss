@@ -4,8 +4,8 @@ $height: $width * $ratio;
 
 $line: ceil($height / 23);
 
-$inner-margin: 2.25rem;
-$outer-margin: 2rem;
+$inner-margin: 1.85rem;
+$outer-margin: 1.85rem;
 
 $paper-color: #fcf7e4;
 $inner-cover-color: #6d6d6d;
@@ -173,9 +173,8 @@ canvas {
   }
 }
 
-.page-text-box {
+.page-content-box {
   position: absolute;
-  mix-blend-mode: multiply;
   @at-root :nth-child(odd) & {
     left: $inner-margin;
     right: $outer-margin;
@@ -192,6 +191,7 @@ canvas {
   p,
   h1,
   h2 {
+    mix-blend-mode: multiply;
     @extend .ballpoint-pen;
   }
 
@@ -235,5 +235,57 @@ canvas {
   }
   p:not(.epigraph) + p:not(.epigraph) {
     text-indent: 2ch;
+  }
+}
+
+.img-page {
+  transform: translateY(-1rem);
+}
+
+.taped-img {
+  margin: 0;
+  padding: 1rem 0;
+  position: relative;
+  .participant-uploaded-img {
+    position: relative;
+    z-index: 0;
+    img {
+      transform: rotate3d(0, 0, 1, 1.5deg);
+    }
+    &:before,
+    &:after {
+      mix-blend-mode: multiply;
+      opacity: 0.4;
+      z-index: -1;
+      position: absolute;
+      content: "";
+      bottom: 15px;
+      left: 10px;
+      width: 50%;
+      top: 80%;
+      max-width: 300px;
+      background: #777;
+      box-shadow: 0 15px 10px #777;
+      transform: rotate(-3deg);
+    }
+    &:after {
+      transform: rotate(3deg);
+      right: 10px;
+      left: auto;
+    }
+  }
+  img.tape {
+    height: 2.25rem;
+    z-index: 1;
+    object-fit: contain;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    &:first-child {
+      top: 0;
+    }
+    &:not(:first-child) {
+      bottom: 0;
+    }
   }
 }
