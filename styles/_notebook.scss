@@ -203,7 +203,9 @@ canvas {
   }
 
   p.epigraph {
+    $l-marg: 2/5;
     color: $black-ballpoint;
+    padding-left: percentage($l-marg);
     .epigraph-author {
       display: block;
       text-align: right;
@@ -217,7 +219,8 @@ canvas {
       content: "* * *";
       display: block;
       text-align: center;
-      padding: $line 0;
+      // centers *** on the page
+      padding: $line percentage(($l-marg)/ (1-$l-marg)) $line 0;
     }
   }
   h1 {
