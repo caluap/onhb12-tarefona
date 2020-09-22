@@ -8,7 +8,7 @@ $inner-margin: 2.25rem;
 $outer-margin: 2rem;
 
 $paper-color: #fcf7e4;
-$inner-cover-color: rgb(109, 109, 109);
+$inner-cover-color: #6d6d6d;
 $blue-ballpoint: #1b339c;
 $black-ballpoint: #223066de;
 
@@ -175,6 +175,7 @@ canvas {
 
 .page-text-box {
   position: absolute;
+  mix-blend-mode: multiply;
   @at-root :nth-child(odd) & {
     left: $inner-margin;
     right: $outer-margin;
@@ -192,7 +193,6 @@ canvas {
   h1,
   h2 {
     @extend .ballpoint-pen;
-    mix-blend-mode: multiply;
   }
 
   .theme {
@@ -203,17 +203,20 @@ canvas {
   }
 
   p.epigraph {
-    margin: 2 * $line 0 3 * $line 33%;
+    padding: $line 0 3 * $line 0;
+    text-align: center;
     color: $blue-ballpoint;
   }
   h1 {
     color: $blue-ballpoint;
     font-weight: bold;
+    text-align: center;
     span.title {
       @include marker($pink-marker-pen);
     }
     span.authorship {
       font-weight: normal;
+      display: block;
       color: $black-ballpoint;
     }
   }
