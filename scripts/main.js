@@ -52,8 +52,14 @@ document.fonts.load('1rem "Supermarker"').then(() => {
   // }
   notebook = document.getElementById("notebook");
   notebook.classList.add(`variation-${data.seed[0]}`);
-  coverInit(data.seed, data.team_name);
+
+  setTimeout(() => {
+    coverInit(data.seed, data.team_name);
+  }, 1200);
+
   titlePage();
   innerPages();
-  notebook.classList.remove("loading");
+  setTimeout(() => {
+    notebook.classList.remove("loading");
+  }, 2000);
 });

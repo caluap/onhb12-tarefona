@@ -208,6 +208,7 @@ function coverInit(seed, teamName) {
   // drawGrid(cols, rows, s);
   drawLogo();
   drawLabel(teamName);
+  canvas.classList.remove("empty-canvas");
 }
 
 function processShape(
