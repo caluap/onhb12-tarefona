@@ -23,10 +23,10 @@
       -->
 
     <div id="notebook">
-      <div class="page" id="cover">
+      <div class="page cover">
         <canvas id="cover-canvas" width="462" height="686"></canvas>
       </div>
-      <div class="page"></div>
+      <div class="page flyleaf"></div>
       <div class="page">
         <div class="page-content-box">
           <h1>
@@ -53,12 +53,13 @@
       <div class="page">
         <div class="page-content-box img-page">
           <div class="taped-img ">
-            <img class="tape" aria-hidden="true" src="img/small-tape-2.png" alt="">
-            <div class="participant-uploaded-img">
+            <img class="tape" aria-hidden="true" role="presentation" src="img/small-tape-2.png" alt="">
+            <div role="figure" aria-labelledby="caption" class="participant-uploaded-img">
               <img src="./img/horizontal.jpg" alt="here you go friend" />
             </div>
-            <img class="tape" aria-hidden="true" src="img/small-tape-3.png" alt="">
+            <img class="tape" aria-hidden="true" role="presentation" src="img/small-tape-3.png" alt="">
           </div>
+          <p id="caption">Trajetória de Pinto do Monteiro como Repentista fonte: Imagem produzida pela equipe.</p>
         </div>
       </div>
       <div class="page">
@@ -147,10 +148,8 @@
           </p>
         </div>
       </div>
-      <div class="page"></div>
-      <div class="page"></div>
-      <div class="page"></div>
-      <div class="page"></div>
+      <div class="page flyleaf"></div>
+      <div class="page back-cover"></div>
     </div>
 
     <script src="scripts/anime.min.js"></script>

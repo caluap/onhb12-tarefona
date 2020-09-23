@@ -63,8 +63,7 @@ $yellow-marker-pen: #ffef97;
   transform-style: preserve-3d;
   transform: rotate3d(1, 0, 0, 0.1deg); // 3d accelerated rendering!
 
-  .page:not(#cover) {
-    // display: none;
+  .page:not(.cover) {
     visibility: hidden;
   }
 }
@@ -82,8 +81,9 @@ canvas {
   width: $width;
   top: 0;
 
-  // not cover
-  &:nth-child(n + 3) {
+  // not cover, not flyleaf
+  &:not(.cover):not(.flyleaf):not(.back-cover) {
+    background-color: $paper-color;
     // lines
     &:before {
       content: "";
@@ -118,9 +118,6 @@ canvas {
     &:nth-child(even):after {
       left: $outer-margin;
     }
-    // &:nth-child(3):after {
-    //   visibility: hidden;
-    // }
   }
 
   &:nth-child(odd) {
@@ -134,12 +131,14 @@ canvas {
     transform-origin: top left;
     left: 50%;
 
-    background-image: linear-gradient(
-      to left,
-      $paper-color,
-      $paper-color 80%,
-      scale-color($paper-color, $lightness: -4%, $saturation: -8) 100%
-    );
+    &:not(.cover):not(.flyleaf):not(.back-cover) {
+      background-image: linear-gradient(
+        to left,
+        $paper-color,
+        $paper-color 80%,
+        scale-color($paper-color, $lightness: -4%, $saturation: -8) 100%
+      );
+    }
   }
   &:nth-child(even) {
     border-radius: 0.75rem;
@@ -148,28 +147,52 @@ canvas {
 
     transform-origin: top right;
     right: 50%;
-    border-right: 1px solid
-      scale-color($paper-color, $lightness: -20%, $saturation: -30%);
 
-    background-image: linear-gradient(
-      to right,
-      $paper-color,
-      $paper-color 60%,
-      scale-color($paper-color, $lightness: -8%, $saturation: -15%) 95%,
-      scale-color($paper-color, $lightness: -12%, $saturation: -20%) 100%
-    );
+    &:not(.cover):not(.flyleaf):not(.back-cover) {
+      border-right: 1px solid
+        scale-color($paper-color, $lightness: -20%, $saturation: -30%);
+
+      background-image: linear-gradient(
+        to right,
+        $paper-color,
+        $paper-color 60%,
+        scale-color($paper-color, $lightness: -8%, $saturation: -15%) 95%,
+        scale-color($paper-color, $lightness: -12%, $saturation: -20%) 100%
+      );
+    }
   }
-  &:nth-child(2) {
+  &.flyleaf {
     background-color: $inner-cover-color;
-    background-image: linear-gradient(
-      to right,
-      $inner-cover-color,
-      scale-color($inner-cover-color, $lightness: 2%) 60%,
-      scale-color($inner-cover-color, $lightness: -10%) 100%
-    );
+    &:nth-child(odd) {
+      background-image: linear-gradient(
+        to left,
+        $inner-cover-color,
+        scale-color($inner-cover-color, $lightness: 2%) 60%,
+        scale-color($inner-cover-color, $lightness: -10%) 100%
+      );
+    }
+    &:nth-child(even) {
+      background-image: linear-gradient(
+        to right,
+        $inner-cover-color,
+        scale-color($inner-cover-color, $lightness: 2%) 60%,
+        scale-color($inner-cover-color, $lightness: -10%) 100%
+      );
+    }
   }
-  &:nth-child(n + 3) {
-    background-color: $paper-color;
+  &.back-cover {
+    background: white;
+    &:after {
+      content: "";
+      position: absolute;
+      left: $outer-margin;
+      bottom: 4/3 * $line;
+      height: 2 * $line;
+      width: 2 * $line;
+      background-image: url(../img/onhb-magenta.svg);
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
   }
 }
 
