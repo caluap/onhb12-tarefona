@@ -138,7 +138,7 @@ function coverInit(seed) {
   width = canvas.offsetWidth;
   height = canvas.offsetHeight;
 
-  ctx.fillStyle = "#fff";
+  ctx.fillStyle = "#f1f2f3";
   ctx.fillRect(0, 0, width, height);
 
   ctx.fillStyle = "#f1f2f3";
