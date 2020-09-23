@@ -132,7 +132,7 @@ function findGetParameter(parameterName) {
   return result;
 }
 
-function coverInit(seed) {
+function coverInit(seed, teamName) {
   canvas = document.getElementById("cover-canvas");
   ctx = canvas.getContext("2d");
   width = canvas.offsetWidth;
@@ -207,7 +207,7 @@ function coverInit(seed) {
 
   // drawGrid(cols, rows, s);
   drawLogo();
-  drawLabel("Now This is Getting Ridiculous");
+  drawLabel(teamName);
 }
 
 function processShape(
@@ -251,7 +251,7 @@ function drawGrid(cols, rows, size) {
   }
 }
 
-function drawLabel(teamName = "Os Mentecaptos Batutas") {
+function drawLabel(teamName = "—") {
   let angle = 1 - (2 * parseInt(seedString[0], 16)) / 16;
 
   ctx.rotate((angle * Math.PI) / 180);
@@ -281,7 +281,7 @@ function drawLabel(teamName = "Os Mentecaptos Batutas") {
   ctx.fillText("Caderno de Crônicas", (2.55 + 2 * M) * s, (9.55 + 2 * M) * s);
 
   ctx.fillStyle = "#223066";
-  teamName = "Equipe " + teamName;
+  teamName = `Equipe “${teamName}”`;
   let maxWidth = (5 - 4 * M) * s,
     words = teamName.split(" "),
     lines = 0,

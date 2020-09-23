@@ -8,6 +8,5 @@ document.fonts.load('1rem "Supermarker"').then(() => {
   notebook = document.getElementById("notebook");
   console.log(seedString);
   notebook.classList.add(`variation-${seedString[0]}`);
-  coverInit(seedString);
-  // diary.classList.remove("loading");
+  coverInit(seedString, data.team_name);
 });
