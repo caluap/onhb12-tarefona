@@ -278,7 +278,7 @@ $variations: 0 1 2 3 4 5 6 7 8 9 a b c d e f;
 
 .taped-img {
   margin: 0;
-  padding: 1rem 0;
+  padding: 1rem 0.25rem;
   position: relative;
   .participant-uploaded-img {
     position: relative;
@@ -304,9 +304,12 @@ $variations: 0 1 2 3 4 5 6 7 8 9 a b c d e f;
       right: 10px;
       left: auto;
     }
+    img {
+      border: 0.5rem solid white;
+    }
   }
   img.tape {
-    height: 2.25rem;
+    height: 2.125rem;
     z-index: 1;
     object-fit: contain;
     position: absolute;
