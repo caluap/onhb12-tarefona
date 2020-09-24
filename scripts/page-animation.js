@@ -1,21 +1,23 @@
-let diary = document.getElementById("diary");
-let pages = document.querySelectorAll(".page");
+let pages;
 
 let animating = false;
 let animDuration = 1500;
 
-for (let i = 0; i < pages.length; i++) {
-  pages[i].addEventListener(
-    "click",
-    function () {
-      if (i % 2 == 0) {
-        advancePage(pages, i);
-      } else {
-        retreatPage(pages, i);
-      }
-    },
-    false
-  );
+function prepareAnimations() {
+  pages = document.querySelectorAll(".page");
+  for (let i = 0; i < pages.length; i++) {
+    pages[i].addEventListener(
+      "click",
+      function () {
+        if (i % 2 == 0) {
+          advancePage(pages, i);
+        } else {
+          retreatPage(pages, i);
+        }
+      },
+      false
+    );
+  }
 }
 
 function advancePage(pages, i) {

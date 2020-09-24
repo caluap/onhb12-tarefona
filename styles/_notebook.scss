@@ -61,7 +61,7 @@ $yellow-marker-pen: #ffef97;
 
   perspective: 50cm;
   transform-style: preserve-3d;
-  $s: 0.95;
+  $s: 0.9;
   transform: scale3d($s, $s, $s) translateY(percentage(-(1-$s)/2))
     rotate3d(1, 0, 0, 0.1deg); // 3d accelerated rendering!
 
@@ -213,20 +213,12 @@ canvas {
   }
 }
 
-.page-content-box {
-  position: absolute;
-  @at-root :nth-child(odd) & {
-    left: $inner-margin;
-    right: $outer-margin;
-  }
-  @at-root :nth-child(even) & {
-    left: $outer-margin;
-    right: $inner-margin;
-  }
-  top: 1.6 * $line;
-  bottom: 4/3 * $line;
+$top: 1.6 * $line;
+$bottom: 4/3 * $line;
+$height: $line * 20;
 
-  overflow: hidden;
+.content-box {
+  width: calc(#{$width} - #{$inner-margin + $outer-margin});
 
   p,
   h1,
@@ -234,6 +226,33 @@ canvas {
     mix-blend-mode: multiply;
     @extend .ballpoint-pen;
   }
+  p:not(.epigraph) + p:not(.epigraph) {
+    text-indent: 2ch;
+  }
+}
+
+#size-calc-box {
+  position: fixed;
+  @extend .content-box;
+  background: limegreen;
+  top: 0;
+  left: 0;
+  // visibility: hidden;
+}
+
+.page-content-box {
+  position: absolute;
+  height: $height;
+  @at-root :nth-child(odd) & {
+    left: $inner-margin;
+  }
+  @at-root :nth-child(even) & {
+    left: $outer-margin;
+  }
+
+  top: $top;
+  @extend .content-box;
+  overflow: hidden;
 
   .theme {
     color: $blue-ballpoint;
@@ -274,9 +293,6 @@ canvas {
       font-weight: normal;
       display: block;
     }
-  }
-  p:not(.epigraph) + p:not(.epigraph) {
-    text-indent: 2ch;
   }
 }
 
