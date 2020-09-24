@@ -225,6 +225,7 @@ $height: $line * 20;
   h2 {
     mix-blend-mode: multiply;
     @extend .ballpoint-pen;
+    user-select: none;
   }
   p:not(.epigraph) + p:not(.epigraph) {
     text-indent: 2ch;
