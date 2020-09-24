@@ -227,7 +227,8 @@ $height: $line * 20;
     @extend .ballpoint-pen;
     user-select: none;
   }
-  p:not(.epigraph) + p:not(.epigraph) {
+  p:not(.epigraph) + p:not(.epigraph),
+  p.indented {
     text-indent: 2ch;
   }
 }

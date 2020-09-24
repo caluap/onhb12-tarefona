@@ -65,15 +65,17 @@ function innerPages() {
   });
 
   let pages = [],
-    currentText;
+    currentText,
+    indent = false;
 
   paragraphs.forEach((paragraph) => {
     currentText = paragraph;
     let hasEndedProcessing = false;
     do {
-      // TODO: needs to detect if this is the start of a new paragraph in a
-      //  new page and, if so, it needs to have indentation!
       let node = document.createElement("p");
+      if (indent) {
+        node.setAttribute("class", "indented");
+      }
       node.innerHTML = currentText;
       sizeCalcBox.appendChild(node);
       let lines = sizeCalcBox.offsetHeight / lineHeight;
@@ -95,6 +97,11 @@ function innerPages() {
               sizeCalcBox.lastChild.innerHTML = oldS;
               pages.push(linkify(sizeCalcBox.innerHTML));
               sizeCalcBox.innerHTML = ``;
+              if (i == 0) {
+                indent = true;
+              } else {
+                indent = false;
+              }
               currentText = words[i];
             }
           } else {
