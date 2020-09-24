@@ -313,6 +313,8 @@ $variations: 0 1 2 3 4 5 6 7 8 9 a b c d e f;
   padding: 1rem 0.25rem;
   position: relative;
   .participant-uploaded-img {
+    margin-left: 50%;
+    transform: translateX(-50%);
     position: relative;
     z-index: 0;
     &:before,

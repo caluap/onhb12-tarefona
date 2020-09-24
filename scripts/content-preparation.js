@@ -1,3 +1,8 @@
+let imgPageEl = document.getElementById("img-page"),
+  sizeCalcBox = document.getElementById("size-calc-box"),
+  lineHeight = sizeCalcBox.offsetHeight;
+lineLimit = 20;
+
 // source: https://stackoverflow.com/a/8943487/888094
 function linkify(text) {
   if (typeof text !== "string") {
@@ -42,10 +47,6 @@ function titlePage() {
 }
 
 function innerPages() {
-  let sizeCalcBox = document.getElementById("size-calc-box"),
-    lineHeight = sizeCalcBox.offsetHeight,
-    lineLimit = 20;
-
   sizeCalcBox.innerHTML = "";
   let paragraphs = [];
   let parts = data.main_text.split("\n");
@@ -113,7 +114,7 @@ function innerPages() {
     sizeCalcBox.innerHTML = ``;
   }
 
-  let lastEl = document.getElementById("img-page");
+  let lastEl = imgPageEl;
 
   pages.forEach((page) => {
     let pageNode = document.createElement("div");
@@ -134,4 +135,32 @@ function innerPages() {
     pageNode.classList.add("page");
     lastEl.insertAdjacentElement("afterend", pageNode);
   }
+}
+
+function imgPage() {
+  let caption = document.getElementById("caption");
+  caption.innerHTML = linkify(data.img_caption);
+
+  let tape = document.querySelector(".tape").offsetHeight;
+  console.log(tape);
+  console.log(caption.offsetHeight);
+
+  let maxHeight = lineHeight * lineLimit - caption.offsetHeight - tape * 2;
+
+  let img = document.createElement("img");
+  img.setAttribute("src", data.main_img);
+  img.setAttribute("alt", data.alt_text);
+  img.setAttribute("style", `max-height: ${maxHeight}px`);
+  img.onload = () => {
+    let figC = document.getElementById("team-img");
+    figC.appendChild(img);
+
+    let ratio = img.offsetHeight / img.offsetWidth;
+    let width = maxHeight / ratio;
+
+    figC.setAttribute(
+      "style",
+      `width: ${width}px; max-width: ${sizeCalcBox.offsetWidth}px;`
+    );
+  };
 }

@@ -13,6 +13,7 @@ document.fonts.load('1rem "Supermarker"').then(() => {
   }, 1200);
 
   titlePage();
+  imgPage();
   innerPages();
   prepareAnimations();
   setTimeout(() => {

@@ -24,6 +24,8 @@ let data = {
     "Ao verme que primeiro roeu as frias carnes do meu cadáver dedico como saudosa lembrança estas memórias posthumas",
   epigraph_authorship: "Brás Cubas",
   main_img: "/img/squarish.jpg",
+  alt_text:
+    "There are spaces we create within ourselves \n Those deep, dark, \n Only I know myself, \n How to pleasure myself spaces, \n And then there are spaces created by systems and institutions \n Those ‘I didn’t give birth to a boy, girl or was it boy, leave!’ spaces \n Those, ‘it is clearly written in the black book, \n We are not worshipping with you in this holy house, get out!’ spaces",
   img_caption:
     "Car tout bourgeois, dans l'échauffement de sa jeunesse, ne fût-ce qu'un jour, une minute, s'est cru capable d'immenses passions, de hautes entreprises. Le plus médiocre libertin. a rêvé des sultanes ; chaque notaire porte en soi les débris d'un poète.",
   main_text:
