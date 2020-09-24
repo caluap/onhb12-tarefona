@@ -113,6 +113,8 @@ function innerPages() {
     sizeCalcBox.innerHTML = ``;
   }
 
+  let lastEl = document.getElementById("img-page");
+
   pages.forEach((page) => {
     let pageNode = document.createElement("div");
     pageNode.classList.add("page");
@@ -120,7 +122,8 @@ function innerPages() {
     pageContentBox.classList.add("page-content-box");
     pageContentBox.innerHTML = page;
     pageNode.appendChild(pageContentBox);
-    notebook.appendChild(pageNode);
+    lastEl.insertAdjacentElement("afterend", pageNode);
+    lastEl = pageNode;
   });
 
   let pageNum = document.querySelectorAll(".page").length;
@@ -129,14 +132,6 @@ function innerPages() {
   if (pageNum % 2 != 0) {
     let pageNode = document.createElement("div");
     pageNode.classList.add("page");
-    notebook.appendChild(pageNode);
+    lastEl.insertAdjacentElement("afterend", pageNode);
   }
-
-  let node = document.createElement("div");
-  node.classList.add("page", "flyleaf");
-  notebook.appendChild(node);
-
-  node = document.createElement("div");
-  node.classList.add("page", "back-cover");
-  notebook.appendChild(node);
 }
