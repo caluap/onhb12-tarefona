@@ -19,7 +19,7 @@ function titlePage() {
     epigraph = data.epigraph,
     epigraphsAuthorship = data.epigraph_authorship;
   // authors
-  authorship = `Escrito por ${data.team_member_1[0]}., ${data.team_member_2[1]}. e ${data.team_member_3[0]}., sob orientação de ${data.team_advisor[0]}.`;
+  authorship = `Escrito por ${data.alleged_team_member_1[0]}., ${data.alleged_team_member_2[0]}. e ${data.alleged_team_member_3[0]}., sob orientação de ${data.alleged_team_advisor[0]}.`;
 
   // themes
   themes = "Uma crônica sobre <br />";

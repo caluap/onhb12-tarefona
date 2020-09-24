@@ -8,7 +8,7 @@ let data = {
   alleged_team_member_1: "Gretchen McCulloch",
   alleged_team_member_2: "Ruben Pater",
   alleged_team_member_3: "Ted Chiang",
-  alleged_team_member_advisor: "Eli Maor",
+  alleged_team_advisor: "Eli Maor",
   team_picture: "/img/horizontal.jpg",
   city: "Campinas",
   state: "SP",
