@@ -1,12 +1,14 @@
 let data = {
   team_id: 123456789,
-  seed:
-    "4f86fc7c926439740944b81d450f86baacc8305e9a1f9d2e1ca0f997bd2708371ffaab772cf1a40d37374496f28a74cd",
   team_name: "Os Batutinhas amestrados do sr. Bum!",
   team_member_1: "Caluã de Lacerda Pataca",
   team_member_2: "Daniel Sarmento Abrahão",
   team_member_3: "Lucas Vignoli Reis",
   team_advisor: "Bernie Would Have Won",
+  alleged_team_member_1: "Gretchen McCulloch",
+  alleged_team_member_2: "Ruben Pater",
+  alleged_team_member_3: "Ted Chiang",
+  alleged_team_member_advisor: "Eli Maor",
   team_picture: "/img/horizontal.jpg",
   city: "Campinas",
   state: "SP",
