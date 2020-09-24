@@ -46,10 +46,10 @@ function titlePage() {
 function innerPages() {}
 
 document.fonts.load('1rem "Supermarker"').then(() => {
-  // let seedString = "";
-  // for (let i = 0; i < rows * cols; i++) {
-  //   seedString += Number(randInt(0, 15)).toString(16);
-  // }
+  data.seed =
+    sha256(data.team_member_1) +
+    sha256(data.team_member_2) +
+    sha256(data.team_member_3);
   notebook = document.getElementById("notebook");
   notebook.classList.add(`variation-${data.seed[0]}`);
 
