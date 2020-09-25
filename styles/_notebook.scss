@@ -98,6 +98,10 @@ canvas {
   width: $width;
   top: 0;
 
+  * {
+    user-select: none;
+  }
+
   // not cover, not flyleaf
   &:not(.cover):not(.flyleaf):not(.back-cover) {
     background-color: $paper-color;
@@ -225,7 +229,6 @@ $height: $line * 20;
   h2 {
     mix-blend-mode: multiply;
     @extend .ballpoint-pen;
-    user-select: none;
   }
   p:not(.epigraph) + p:not(.epigraph),
   p.indented {

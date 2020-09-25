@@ -9,7 +9,8 @@ let data = {
   alleged_team_member_2: "Ruben Pater",
   alleged_team_member_3: "Ted Chiang",
   alleged_team_advisor: "Eli Maor",
-  team_picture: "/img/horizontal.jpg",
+  team_picture: "/img/equipe.jpg",
+  team_picture_description: "Me and the gang",
   city: "Campinas",
   state: "SP",
   title:

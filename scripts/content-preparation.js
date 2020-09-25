@@ -144,30 +144,62 @@ function innerPages() {
   }
 }
 
-function imgPage() {
-  let caption = document.getElementById("caption");
-  caption.innerHTML = linkify(data.img_caption);
+function setupImg(
+  idCaptionEl,
+  captionPs,
+  imgSrc,
+  imgAlt,
+  imgContainerEl,
+  tape
+) {
+  let captionEl = document.getElementById(idCaptionEl);
+  captionPs.forEach((text) => {
+    let p = document.createElement("p");
+    p.innerHTML = text;
+    captionEl.appendChild(p);
+  });
 
-  let tape = document.querySelector(".tape").offsetHeight;
-  console.log(tape);
-  console.log(caption.offsetHeight);
-
-  let maxHeight = lineHeight * lineLimit - caption.offsetHeight - tape * 2;
-
+  let maxHeight = lineHeight * lineLimit - captionEl.offsetHeight - tape * 2;
   let img = document.createElement("img");
-  img.setAttribute("src", data.main_img);
-  img.setAttribute("alt", data.alt_text);
+  img.setAttribute("src", imgSrc);
+  img.setAttribute("alt", imgAlt);
   img.setAttribute("style", `max-height: ${maxHeight}px`);
   img.onload = () => {
-    let figC = document.getElementById("team-img");
+    let figC = document.getElementById(imgContainerEl);
     figC.appendChild(img);
-
     let ratio = img.offsetHeight / img.offsetWidth;
     let width = maxHeight / ratio;
-
     figC.setAttribute(
       "style",
       `width: ${width}px; max-width: ${sizeCalcBox.offsetWidth}px;`
     );
   };
+}
+
+function imgPage() {
+  let tape = document.querySelector(".tape").offsetHeight;
+
+  // sets up “main image” page
+  setupImg(
+    "caption",
+    [linkify(data.img_caption)],
+    data.main_img,
+    data.alt_text,
+    "main-img",
+    tape
+  );
+
+  // sets up the page that presents the team.
+  let credits = [
+    `Crônica criada pela equipe <span class="team-name">“${data.team_name}”</span>, de <span class="place-of-origin">${data.city}, ${data.state}.</span>`,
+    `Participaram da equipe <span class="team-member">${data.alleged_team_member_1}</span>, <span class="team-member">${data.alleged_team_member_2}</span>, e <span class="team-member">${data.alleged_team_member_3}</span>, sob orientação de <span class="team-member">${data.alleged_team_advisor}</span>.`,
+  ];
+  setupImg(
+    "about-the-team",
+    credits,
+    data.team_picture,
+    data.team_picture_description,
+    "team-img",
+    tape
+  );
 }
