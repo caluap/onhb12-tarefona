@@ -3,15 +3,96 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Tarefona ONHB 12</title>
+    <title></title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="styles/main.css" />
   </head>
   <body>
-    <canvas id="cover-canvas" width="600" height="900"></canvas>
+    <!-- 
+      cover:
 
+        12 rows x 8 columns
+        1/8 module border
+
+        12.25 x 8.25
+        ratio: 1,4848484848
+
+        width: 462, height: 686
+      
+      -->
+
+    <div id="size-calc-box">
+      <p>Hello World!</p>
+    </div>
+
+    <div id="notebook" class="loading">
+      <div class="page cover">
+        <canvas id="cover-canvas" width="462" height="686" class="empty-canvas"></canvas>
+      </div>
+      <div class="page flyleaf"></div>
+      <div class="page" id="title-page">
+        <div class="page-content-box">
+          <h1>
+            <span class="title"></span
+            ><span class="authorship"></span
+            >
+          </h1>
+          <h2 class="theme">
+          </h2>
+          <p class="epigraph">
+            <span class="main-text"></span>
+            <span class="epigraph-author"></span>
+          </p>
+          </p>
+        </div>
+      </div>
+      <div class="page" id="img-page">
+        <div class="page-content-box img-page-box">
+          <div class="taped-img ">
+            <img class="tape" aria-hidden="true" role="presentation" src="img/small-tape-2.png" alt="">
+            <div id="main-img" role="figure" aria-labelledby="caption" class="participant-uploaded-img">
+            </div>
+            <img class="tape" aria-hidden="true" role="presentation" src="img/small-tape-3.png" alt="">
+          </div>
+          <div id="caption"></div>
+        </div>
+      </div>
+      <div class="page" id="team-presentation">
+        <div class="page-content-box img-page-box">
+          <div class="taped-img ">
+            <img class="tape" aria-hidden="true" role="presentation" src="img/small-tape-2.png" alt="">
+            <div id="team-img" role="figure" class="participant-uploaded-img">
+            </div>
+            <img class="tape" aria-hidden="true" role="presentation" src="img/small-tape-3.png" alt="">
+          </div>
+          <div id="about-the-team">
+          </div>
+        </div>
+      </div>
+      <div class="page flyleaf"></div>
+      <div class="page back-cover"></div>
+    </div>
+
+
+
+    <div id="loading-spinner">
+      <div class="sk-chase">
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+      </div>
+    </div>
+
+    <script src="scripts/example-data.js"></script>
+    <script src="scripts/sha256.min.js"></script>
+    <script src="scripts/anime.min.js"></script>
     <script src="scripts/cover-generator.js"></script>
+    <script src="scripts/page-animation.js"></script>
+    <script src="scripts/content-preparation.js"></script>
     <script src="scripts/main.js"></script>
   </body>
 </html>

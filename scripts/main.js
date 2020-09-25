@@ -8,15 +8,11 @@ document.fonts.load('1rem "Supermarker"').then(() => {
   notebook = document.getElementById("notebook");
   notebook.classList.add(`variation-${data.seed[0]}`);
 
-  setTimeout(() => {
-    coverInit(data.seed, data.team_name);
-  }, 1200);
+  coverInit(data.seed, data.team_name);
 
   titlePage();
   imgPage();
   innerPages();
   prepareAnimations();
-  setTimeout(() => {
-    notebook.classList.remove("loading");
-  }, 2000);
+  notebook.classList.remove("loading");
 });
