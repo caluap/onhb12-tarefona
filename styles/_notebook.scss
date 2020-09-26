@@ -222,12 +222,29 @@ canvas {
 
 #notebook.mobile {
   width: $width;
+  &:before {
+    content: "";
+    position: absolute;
+    height: 3rem;
+    top: -1rem;
+    z-index: 2;
+    background-image: url(../img/spiral.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100%;
+  }
   .page {
     right: 0;
     left: unset;
     border-radius: 0.5rem;
     background-image: none;
     border: none;
+
+    &:not(.cover):not(.flyleaf):not(.back-cover):after {
+      top: 0.75 * $line;
+      right: $outer-margin;
+      left: unset;
+    }
   }
 }
 
