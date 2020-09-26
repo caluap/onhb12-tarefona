@@ -16,6 +16,10 @@ body {
   overflow-y: scroll;
 }
 
+:root {
+  --zoom-level: 1;
+}
+
 $green-marker-pen: #82ffad;
 $blue-marker-pen: #a0eff5;
 $pink-marker-pen: #fdb3e1;
@@ -61,8 +65,7 @@ $yellow-marker-pen: #ffef97;
 
   perspective: 50cm;
   transform-style: preserve-3d;
-  $s: 0.9;
-  transform: scale3d($s, $s, $s) translateY(percentage(-(1-$s)/2))
+  transform: scale3d(var(--zoom-level), var(--zoom-level), var(--zoom-level))
     rotate3d(1, 0, 0, 0.1deg); // 3d accelerated rendering!
 
   .page:not(.cover) {
@@ -213,6 +216,45 @@ canvas {
       background-image: url(../img/onhb-magenta.svg);
       background-size: contain;
       background-repeat: no-repeat;
+    }
+  }
+}
+
+#notebook.mobile {
+  width: $width;
+  .page {
+    right: 0;
+    left: unset;
+    border-radius: 0.5rem;
+    background-image: none;
+    border: none;
+  }
+}
+
+#notebook:not(.mobile) #navigation {
+  display: none;
+}
+
+#navigation {
+  position: absolute;
+  bottom: -1rem;
+  left: 0;
+  width: $width;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+  padding: 0.5rem 1rem;
+  button {
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    border: none;
+    background-color: white;
+    font-size: 1rem;
+    font-family: "Supermarker";
+    &:hover {
+      background: black;
+      color: white;
     }
   }
 }

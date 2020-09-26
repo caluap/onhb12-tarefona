@@ -1,5 +1,3 @@
-let pages;
-
 let animating = false;
 let animDuration = 1500;
 
@@ -10,9 +8,9 @@ function prepareAnimations() {
       "click",
       function () {
         if (i % 2 == 0) {
-          advancePage(pages, i);
+          advancePage(i);
         } else {
-          retreatPage(pages, i);
+          retreatPage(i);
         }
       },
       false
@@ -20,7 +18,22 @@ function prepareAnimations() {
   }
 }
 
-function advancePage(pages, i) {
+function advancePage(i = null) {
+  if (mobile) {
+    if (i + 1 < pages.length) {
+      let newI;
+      if (pages[i + 1].classList.contains("flyleaf")) {
+        newI = i + 2;
+      } else {
+        newI = i + 1;
+      }
+      pages[i].style.visibility = "hidden";
+      pages[newI].style.visibility = "visible";
+      iPage = newI;
+    }
+    updateButs();
+    return;
+  }
   if (!animating) {
     animating = true;
     anime({
@@ -50,6 +63,7 @@ function advancePage(pages, i) {
               if (i - 1 >= 0) {
                 pages[i - 1].style.visibility = "hidden";
               }
+              iPage = i + 1;
               animating = false;
             },
           });
@@ -59,7 +73,38 @@ function advancePage(pages, i) {
   }
 }
 
-function retreatPage(pages, i) {
+function updateButs() {
+  if (iPage == 0) {
+    navButs[0].style.visibility = "hidden";
+  } else if (iPage == pages.length - 1) {
+    navButs[1].style.visibility = "hidden";
+  } else {
+    navButs[0].style.visibility = "visible";
+    navButs[1].style.visibility = "visible";
+  }
+}
+
+function flipPage(delta) {
+  if (delta == 1 && (iPage == 0 || iPage == pages.length - 3)) {
+    delta = 2;
+  }
+  if (delta == -1 && (iPage == pages.length - 1 || iPage == 2)) {
+    delta = -2;
+  }
+  let newI = iPage + delta;
+  if (newI >= 0 && newI < pages.length) {
+    pages[iPage].setAttribute("style", "visibility: hidden;");
+    iPage = newI;
+    pages[iPage].setAttribute("style", "visibility: visible;");
+  }
+  updateButs();
+}
+
+function retreatPage(i = null) {
+  if (mobile && i != null) {
+    advancePage(i);
+    return;
+  }
   if (!animating) {
     animating = true;
     anime({
@@ -88,6 +133,7 @@ function retreatPage(pages, i) {
               if (i + 1 < pages.length) {
                 pages[i + 1].style.visibility = "hidden";
               }
+              iPage = i - 2;
               animating = false;
             },
           });
