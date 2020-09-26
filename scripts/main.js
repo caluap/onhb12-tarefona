@@ -25,14 +25,16 @@ function detectMobile() {
         pages[i].setAttribute("style", "visibility: hidden;");
       }
     }
-  } else if (!newlyMobile && mobile && iPage > 0) {
+  } else if (!newlyMobile && mobile) {
     notebook.classList.remove("mobile");
-    if (iPage % 2 == 0) {
-      iPage--;
-      pages[iPage].setAttribute("style", "visibility: visible;");
-    } else {
-      if (iPage + 1 < pages.length) {
-        pages[iPage + 1].setAttribute("style", "visibility: visible;");
+    if (iPage > 0) {
+      if (iPage % 2 == 0) {
+        iPage--;
+        pages[iPage].setAttribute("style", "visibility: visible;");
+      } else {
+        if (iPage + 1 < pages.length) {
+          pages[iPage + 1].setAttribute("style", "visibility: visible;");
+        }
       }
     }
   }
