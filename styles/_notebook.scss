@@ -115,7 +115,7 @@ canvas {
       left: 1.75rem;
       right: 1.75rem;
       top: $line;
-      bottom: $line * 3/2;
+      height: $line * 20;
 
       mix-blend-mode: multiply;
 
@@ -132,7 +132,7 @@ canvas {
     &:after {
       position: absolute;
       content: counter(page_num);
-      top: 0.5 * $line;
+      top: $line;
       @extend .ballpoint-pen;
       color: $blue-ballpoint;
     }
@@ -226,7 +226,7 @@ canvas {
     content: "";
     position: absolute;
     height: 3rem;
-    top: -1rem;
+    top: -0.75rem;
     z-index: 2;
     background-image: url(../img/spiral.svg);
     background-size: contain;
@@ -241,7 +241,6 @@ canvas {
     border: none;
 
     &:not(.cover):not(.flyleaf):not(.back-cover):after {
-      top: 0.75 * $line;
       right: $outer-margin;
       left: unset;
     }
@@ -276,9 +275,8 @@ canvas {
   }
 }
 
-$top: 1.6 * $line;
-$bottom: 4/3 * $line;
-$height: $line * 20;
+$top: 9/4 * $line;
+$height: $line * 19;
 
 .content-box {
   width: calc(#{$width} - #{$inner-margin + $outer-margin});

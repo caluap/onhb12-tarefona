@@ -1,7 +1,7 @@
 let imgPageEl = document.getElementById("img-page"),
   sizeCalcBox = document.getElementById("size-calc-box"),
   lineHeight = sizeCalcBox.offsetHeight;
-lineLimit = 20;
+lineLimit = 19;
 
 // source: https://stackoverflow.com/a/8943487/888094
 function linkify(text) {
