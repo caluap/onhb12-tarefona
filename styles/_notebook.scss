@@ -340,11 +340,11 @@ $height: $line * 19;
       display: block;
       text-align: center;
       // centers *** on the page
-      padding: $line percentage(($l-marg)/ (1-$l-marg)) $line 0;
+      padding: $line/2 percentage(($l-marg)/ (1-$l-marg)) $line/2 0;
     }
   }
   h1 {
-    padding: $line 0;
+    padding: 0 0 $line 0;
     color: $blue-ballpoint;
     font-weight: bold;
     text-align: center;
