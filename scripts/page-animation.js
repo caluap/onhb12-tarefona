@@ -20,18 +20,6 @@ function prepareAnimations() {
 
 function advancePage(i = null) {
   if (mobile) {
-    if (i + 1 < pages.length) {
-      let newI;
-      if (pages[i + 1].classList.contains("flyleaf")) {
-        newI = i + 2;
-      } else {
-        newI = i + 1;
-      }
-      pages[i].style.visibility = "hidden";
-      pages[newI].style.visibility = "visible";
-      iPage = newI;
-    }
-    updateButs();
     return;
   }
   if (!animating) {
@@ -84,8 +72,7 @@ function advancePage(i = null) {
 }
 
 function retreatPage(i = null) {
-  if (mobile && i != null) {
-    advancePage(i);
+  if (mobile) {
     return;
   }
   if (!animating) {
