@@ -58,7 +58,6 @@ function detectMobile() {
     if (hiddenTeamMode) {
       let teamName = data.team_name[0];
       for (let i = 1; i < data.team_name.length; i++) {
-        console.log(teamName);
         if (
           parseInt(data.seed[i], 16) % 5 == 0 ||
           data.team_name[i] == " " ||
