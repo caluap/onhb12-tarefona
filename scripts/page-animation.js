@@ -48,6 +48,11 @@ function advancePage(i = null) {
         }
       },
       complete: function (anim) {
+        if (mobile) {
+          updateButs();
+          animating = false;
+          return;
+        }
         pages[i].style.visibility = "hidden";
         pages[i].style.zIndex = "1";
         if (i + 1 < pages.length) {
@@ -60,10 +65,68 @@ function advancePage(i = null) {
               pages[i + 1].style.visibility = "visible";
             },
             complete: function (anim) {
+              if (mobile) {
+                updateButs();
+                animating = false;
+                return;
+              }
               if (i - 1 >= 0) {
                 pages[i - 1].style.visibility = "hidden";
               }
               iPage = i + 1;
+              animating = false;
+            },
+          });
+        }
+      },
+    });
+  }
+}
+
+function retreatPage(i = null) {
+  if (mobile && i != null) {
+    advancePage(i);
+    return;
+  }
+  if (!animating) {
+    animating = true;
+    anime({
+      targets: pages[i],
+      rotateY: [0, 90],
+      duration: animDuration / 2,
+      easing: "easeInQuad",
+      begin: function (anim) {
+        pages[i].style.zIndex = "100";
+        if (i - 2 >= 0) {
+          pages[i - 2].style.visibility = "visible";
+        }
+      },
+      complete: function (anim) {
+        if (mobile) {
+          updateButs();
+          animating = false;
+          return;
+        }
+        pages[i].style.visibility = "hidden";
+        pages[i].style.zIndex = "1";
+        if (i - 1 >= 0) {
+          pages[i - 1].style.visibility = "visible";
+          pages[i - 1].style.display = "100";
+          anime({
+            targets: pages[i - 1],
+            rotateY: [-90, 0],
+            duration: animDuration / 2,
+            easing: "easeOutQuad",
+            complete: function (anim) {
+              if (mobile) {
+                updateButs();
+                animating = false;
+                return;
+              }
+              if (i + 1 < pages.length) {
+                pages[i + 1].style.visibility = "hidden";
+              }
+              iPage = i - 2;
               animating = false;
             },
           });
@@ -98,47 +161,4 @@ function flipPage(delta) {
     pages[iPage].setAttribute("style", "visibility: visible;");
   }
   updateButs();
-}
-
-function retreatPage(i = null) {
-  if (mobile && i != null) {
-    advancePage(i);
-    return;
-  }
-  if (!animating) {
-    animating = true;
-    anime({
-      targets: pages[i],
-      rotateY: [0, 90],
-      duration: animDuration / 2,
-      easing: "easeInQuad",
-      begin: function (anim) {
-        pages[i].style.zIndex = "100";
-        if (i - 2 >= 0) {
-          pages[i - 2].style.visibility = "visible";
-        }
-      },
-      complete: function (anim) {
-        pages[i].style.visibility = "hidden";
-        pages[i].style.zIndex = "1";
-        if (i - 1 >= 0) {
-          pages[i - 1].style.visibility = "visible";
-          pages[i - 1].style.display = "100";
-          anime({
-            targets: pages[i - 1],
-            rotateY: [-90, 0],
-            duration: animDuration / 2,
-            easing: "easeOutQuad",
-            complete: function (anim) {
-              if (i + 1 < pages.length) {
-                pages[i + 1].style.visibility = "hidden";
-              }
-              iPage = i - 2;
-              animating = false;
-            },
-          });
-        }
-      },
-    });
-  }
 }
