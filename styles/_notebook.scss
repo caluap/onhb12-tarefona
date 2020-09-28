@@ -63,8 +63,21 @@ $yellow-marker-pen: #ffef97;
 
   position: relative;
 
+  $base: 924 + 32;
+  $increment: (1920 - $base) / 8;
+  $zoom_increment: 0.4 / 8;
+
+  @for $i from 1 through 8 {
+    $w: $width * 2 + $i * $increment + 32;
+    $h: ($w - 32) / ($width * 2) * $height;
+    @media (min-width: #{$w}) and (min-height: #{$h}) {
+      --zoom-level: #{1 + $zoom_increment * $i};
+    }
+  }
+
   perspective: 50cm;
   transform-style: preserve-3d;
+  transform-origin: top right;
   transform: scale3d(var(--zoom-level), var(--zoom-level), var(--zoom-level))
     rotate3d(1, 0, 0, 0.1deg); // 3d accelerated rendering!
 
