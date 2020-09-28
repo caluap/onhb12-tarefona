@@ -12,12 +12,28 @@ $inner-cover-color: #6d6d6d;
 $blue-ballpoint: #1b339c;
 $black-ballpoint: #223066de;
 
-body {
-  overflow-y: scroll;
-}
-
 :root {
   --zoom-level: 1;
+}
+
+body {
+  overflow-y: scroll;
+
+  $zoom_increment: 0.5 / 8;
+
+  @for $i from 1 through 8 {
+    $zoom: 1 - $i * $zoom_increment;
+    $w: ($width) * $zoom + 64;
+    $delta_h: -$height * (1 - $zoom) / 2;
+    @media (max-width: #{$w}) {
+      --zoom-level: #{$zoom};
+      #notebook {
+        margin-top: #{$delta_h};
+      }
+    }
+  }
+
+  transform: scale(var(--zoom-level));
 }
 
 $green-marker-pen: #82ffad;
@@ -63,23 +79,9 @@ $yellow-marker-pen: #ffef97;
 
   position: relative;
 
-  $base: 924 + 32;
-  $increment: (1920 - $base) / 8;
-  $zoom_increment: 0.4 / 8;
-
-  @for $i from 1 through 8 {
-    $w: $width * 2 + $i * $increment + 32;
-    $h: ($w - 32) / ($width * 2) * $height;
-    @media (min-width: #{$w}) and (min-height: #{$h}) {
-      --zoom-level: #{1 + $zoom_increment * $i};
-    }
-  }
-
   perspective: 50cm;
   transform-style: preserve-3d;
-  transform-origin: top right;
-  transform: scale3d(var(--zoom-level), var(--zoom-level), var(--zoom-level))
-    rotate3d(1, 0, 0, 0.1deg); // 3d accelerated rendering!
+  transform: rotate3d(1, 0, 0, 0.1deg); // 3d accelerated rendering!
 
   .page:not(.cover) {
     visibility: hidden;
