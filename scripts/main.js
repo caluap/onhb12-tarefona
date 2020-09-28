@@ -3,7 +3,8 @@ let notebook,
   mobileBreakpoint = 900,
   pages,
   iPage = 0,
-  navButs;
+  navButs,
+  hiddenTeamMode = true; // magic. do not touch!
 
 function detectMobile() {
   let w = Math.max(
@@ -53,6 +54,23 @@ function detectMobile() {
     notebook = document.getElementById("notebook");
     notebook.classList.add(`variation-${data.seed[0]}`);
     navButs = document.querySelectorAll("#navigation button");
+
+    if (hiddenTeamMode) {
+      let teamName = data.team_name[0];
+      for (let i = 1; i < data.team_name.length; i++) {
+        console.log(teamName);
+        if (
+          parseInt(data.seed[i], 16) % 5 == 0 ||
+          data.team_name[i] == " " ||
+          data.team_name[i - 1] == " "
+        ) {
+          teamName += data.team_name[i];
+        } else {
+          teamName += "█";
+        }
+      }
+      data.team_name = teamName;
+    }
 
     coverInit(data.seed, data.team_name);
 

@@ -22,7 +22,11 @@ function titlePage() {
     epigraph = data.epigraph,
     epigraphsAuthorship = data.epigraph_authorship;
   // authors
-  authorship = `Escrito por ${data.alleged_team_member_1[0]}., ${data.alleged_team_member_2[0]}. e ${data.alleged_team_member_3[0]}., sob orientação de ${data.alleged_team_advisor[0]}.`;
+  if (hiddenTeamMode) {
+    authorship = `Escrito por ${data.alleged_team_member_1[0]}., ${data.alleged_team_member_2[0]}. e ${data.alleged_team_member_3[0]}., sob orientação de ${data.alleged_team_advisor[0]}.`;
+  } else {
+    authorship = `Escrito por ${data.alleged_team_member_1}, ${data.alleged_team_member_2} e ${data.alleged_team_member_3}, sob orientação de ${data.alleged_team_advisor}.`;
+  }
 
   // themes
   themes = "Uma crônica sobre <br />";
@@ -190,10 +194,41 @@ function imgPage() {
   );
 
   // sets up the page that presents the team.
+
+  let censoredOrigin;
+  if (hiddenTeamMode) {
+    let statesAndRegions = [
+      { name: "Norte", states: ["AM", "RR", "AP", "PA", "TO", "RO", "AC"] },
+      {
+        name: "Nordeste",
+        states: ["MA", "PI", "CE", "RN", "PE", "PB", "SE", "AL", "BA"],
+      },
+      { name: "Centro-Oeste", states: ["MT", "MS", "GO", "DF"] },
+      { name: "Sudeste", states: ["SP", "RJ", "ES", "MG"] },
+      { name: "Sul", states: ["PR", "RS", "SC"] },
+    ];
+    for (let i = 0; i < statesAndRegions.length; i++) {
+      if (statesAndRegions[i].states.includes(data.state)) {
+        censoredOrigin = `uma cidade da região ${statesAndRegions[i].name}`;
+        break;
+      }
+    }
+  } else {
+    censoredOrigin = `${data.city}, ${data.state}`;
+  }
+
   let credits = [
-    `Crônica criada pela equipe <span class="team-name">“${data.team_name}”</span>, de <span class="place-of-origin">${data.city}, ${data.state}.</span>`,
-    `Participaram da equipe <span class="team-member">${data.alleged_team_member_1}</span>, <span class="team-member">${data.alleged_team_member_2}</span>, e <span class="team-member">${data.alleged_team_member_3}</span>, sob orientação de <span class="team-member">${data.alleged_team_advisor}</span>.`,
+    `Crônica criada pela equipe <span class="team-name">“${data.team_name}”</span>, de <span class="place-of-origin">${censoredOrigin}.</span>`,
   ];
+  if (hiddenTeamMode) {
+    credits.push(
+      `Participaram da equipe <span class="team-member">${data.alleged_team_member_1[0]}.</span>, <span class="team-member">${data.alleged_team_member_2[0]}.</span>, e <span class="team-member">${data.alleged_team_member_3[0]}.</span>, sob orientação de <span class="team-member">${data.alleged_team_advisor[0]}.</span>.`
+    );
+  } else {
+    credits.push(
+      `Participaram da equipe <span class="team-member">${data.alleged_team_member_1}</span>, <span class="team-member">${data.alleged_team_member_2}</span>, e <span class="team-member">${data.alleged_team_member_3}</span>, sob orientação de <span class="team-member">${data.alleged_team_advisor}</span>.`
+    );
+  }
   setupImg(
     "about-the-team",
     credits,
