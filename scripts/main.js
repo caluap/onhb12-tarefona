@@ -79,8 +79,8 @@ function detectMobile() {
     prepareAnimations();
     detectMobile();
 
-    setupAudio();
     setupListeningMachine();
+    setupAudio();
     notebook.classList.remove("loading");
   });
 })();

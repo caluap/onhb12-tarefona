@@ -245,7 +245,12 @@ function setupListeningMachine() {
     img.setAttribute("src", data.main_img);
     img.setAttribute("alt", data.alt_text);
     let p = document.querySelector("#listening-machine p");
-    p.innerHTML = data.alt_text;
+    let spannyText = "";
+    data.alt_text.split(" ").forEach((word) => {
+      spannyText += `<span>${word}</span> `;
+    });
+    p.setAttribute("id", "visible-alt-text");
+    p.innerHTML = spannyText;
 
     let mainImg = document.querySelector("#main-img");
     mainImg.onclick = function (event) {
