@@ -65,7 +65,7 @@ function detectMobile() {
         ) {
           teamName += data.team_name[i];
         } else {
-          teamName += "█";
+          teamName += "*"; // █
         }
       }
       data.team_name = teamName;
@@ -78,6 +78,9 @@ function detectMobile() {
     innerPages();
     prepareAnimations();
     detectMobile();
+
+    setupAudio();
+    setupListeningMachine();
     notebook.classList.remove("loading");
   });
 })();

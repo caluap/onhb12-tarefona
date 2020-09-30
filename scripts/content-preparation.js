@@ -238,3 +238,19 @@ function imgPage() {
     tape
   );
 }
+
+function setupListeningMachine() {
+  if (hiddenTeamMode) {
+    let img = document.querySelector("#listening-machine img");
+    img.setAttribute("src", data.main_img);
+    img.setAttribute("alt", data.alt_text);
+    let p = document.querySelector("#listening-machine p");
+    p.innerHTML = data.alt_text;
+
+    let mainImg = document.querySelector("#main-img");
+    mainImg.onclick = function (event) {
+      openListeningMachine();
+      event.stopPropagation();
+    };
+  }
+}

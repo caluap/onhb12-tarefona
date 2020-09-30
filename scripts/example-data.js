@@ -26,7 +26,7 @@ let data = {
   epigraph_authorship: "Brás Cubas",
   main_img: "/img/squarish.jpg",
   alt_text:
-    "There are spaces we create within ourselves \n Those deep, dark, \n Only I know myself, \n How to pleasure myself spaces, \n And then there are spaces created by systems and institutions \n Those ‘I didn’t give birth to a boy, girl or was it boy, leave!’ spaces \n Those, ‘it is clearly written in the black book, \n We are not worshipping with you in this holy house, get out!’ spaces",
+    "Algum tempo hesitei se devia abrir estas memorias pelo princípio ou pelo fim, isto é, se poria em primeiro logar o meu nascimento ou a minha morte. Supposto o uso vulgar seja começar pelo nascimento, duas considerações me levaram a adoptar differente methodo: a primeira é que eu não sou propriamente um autor defunto, mas um defunto autor, para quem a campa foi outro berço; a segunda é que o escripto ficaria assim mais galante e mais novo. Moysés, que tambem contou a sua morte, não a poz no introito, mas no cabo: differença radical entre este livro e o Pentateuco.",
   img_caption:
     "Car tout bourgeois, dans l'échauffement de sa jeunesse, ne fût-ce qu'un jour, une minute, s'est cru capable d'immenses passions, de hautes entreprises. Le plus médiocre libertin. a rêvé des sultanes ; chaque notaire porte en soi les débris d'un poète.",
   main_text:

@@ -13,27 +13,7 @@ $blue-ballpoint: #1b339c;
 $black-ballpoint: #223066de;
 
 :root {
-  --zoom-level: 1;
-}
-
-body {
-  overflow-y: scroll;
-
-  $zoom_increment: 0.5 / 8;
-
-  @for $i from 1 through 8 {
-    $zoom: 1 - $i * $zoom_increment;
-    $w: ($width) * $zoom + 64;
-    $delta_h: -$height * (1 - $zoom) / 2;
-    @media (max-width: #{$w}) {
-      --zoom-level: #{$zoom};
-      #notebook {
-        margin-top: #{$delta_h};
-      }
-    }
-  }
-
-  transform: scale(var(--zoom-level));
+  --zoom-level: 0.95;
 }
 
 $green-marker-pen: #82ffad;
@@ -75,13 +55,29 @@ $yellow-marker-pen: #ffef97;
   width: $width * 2;
   height: $height;
 
+  font-family: "Supermarker", sans-serif;
+
   counter-reset: page_num;
 
   position: relative;
 
+  $zoom_increment: 0.5 / 8;
+
+  @for $i from 1 through 8 {
+    $zoom: 1 - $i * $zoom_increment;
+    $w: ($width) * $zoom + 64;
+    $delta_h: -$height * (1 - $zoom) / 2;
+    @media (max-width: #{$w}) {
+      --zoom-level: #{$zoom};
+      #notebook {
+        margin-top: #{$delta_h};
+      }
+    }
+  }
+
   perspective: 50cm;
   transform-style: preserve-3d;
-  transform: rotate3d(1, 0, 0, 0.1deg); // 3d accelerated rendering!
+  transform: scale(var(--zoom-level)) rotate3d(1, 0, 0, 0.1deg); // 3d accelerated rendering!
 
   .page:not(.cover) {
     visibility: hidden;
@@ -276,17 +272,6 @@ canvas {
   grid-gap: 1rem;
   padding: 0.5rem 1rem;
   button {
-    cursor: pointer;
-    padding: 0.5rem;
-    border-radius: 1rem;
-    border: none;
-    background-color: white;
-    font-size: 1rem;
-    font-family: "Supermarker";
-    &:hover {
-      background: black;
-      color: white;
-    }
   }
 }
 
@@ -529,5 +514,68 @@ $variations: 0 1 2 3 4 5 6 7 8 9 a b c d e f;
   100%,
   0% {
     transform: scale(1);
+  }
+}
+
+#listening-machine {
+  position: fixed;
+
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+
+  padding: 2rem;
+  @supports (padding: max(2rem)) {
+    padding-left: #{"max(2rem, 50vw - 32rem)"};
+    padding-right: #{"max(2rem, 50vw - 32rem)"};
+  }
+
+  backdrop-filter: blur(16px);
+  background-color: transparentize(#fff, 0.75);
+
+  display: none;
+  // display: grid;
+  align-items: center;
+  justify-content: center;
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+
+  .grid-listening-machine {
+    display: grid;
+    grid-gap: 2rem;
+    grid-row-gap: 0rem;
+    grid-template-columns: 2fr 1fr;
+  }
+
+  h3,
+  p {
+    text-shadow: 0 0 2px transparentize(#fff, 0.666);
+  }
+
+  h3 {
+    font-size: 1rem;
+    line-height: 1.4rem;
+    font-weight: bold;
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.4rem;
+    margin-bottom: 2rem;
+  }
+
+  button {
+    margin-top: 1rem;
+    padding: 1rem;
+    font-size: 1rem;
+    width: 100%;
+  }
+
+  img {
+    grid-column: 1;
+    max-height: 75vh;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   }
 }
