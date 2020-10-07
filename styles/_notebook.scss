@@ -55,7 +55,11 @@ $yellow-marker-pen: #ffef97;
   width: $width * 2;
   height: $height;
 
-  font-family: "Supermarker", sans-serif;
+  &,
+  * {
+    font-family: "Supermarker", sans-serif;
+    font-weight: 300;
+  }
 
   counter-reset: page_num;
 
@@ -279,7 +283,8 @@ $top: 9/4 * $line;
 $height: $line * 19;
 
 .content-box {
-  width: calc(#{$width} - #{$inner-margin + $outer-margin});
+  // width: calc(#{$width} - #{$inner-margin + $outer-margin});
+  width: calc(#{$width} - #{3.7 * 19px});
 
   p,
   h1,
@@ -299,7 +304,11 @@ $height: $line * 19;
   background: limegreen;
   top: 0;
   left: 0;
-  font-family: "Supermarker", sans-serif;
+  &,
+  * {
+    font-family: "Supermarker", sans-serif;
+    font-weight: 300;
+  }
   visibility: hidden;
 }
 
