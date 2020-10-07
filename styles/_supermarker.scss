@@ -2,16 +2,98 @@
   font-family: "Supermarker";
   font-style: normal;
   font-display: swap;
-  font-weight: 400;
-  src: url("../fonts/SupermarkerTrial-Light.woff2") format("woff2"),
-    url("../fonts/SupermarkerTrial-Light.woff") format("woff");
+  font-weight: 200;
+  src: url("../fonts/Supermarker-ThinWeb.woff2") format("woff2"),
+    url("../fonts/Supermarker-ThinWeb.woff") format("woff");
 }
-
+@font-face {
+  font-family: "Supermarker";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300;
+  src: url("../fonts/Supermarker-LightWeb.woff2") format("woff2"),
+    url("../fonts/Supermarker-LightWeb.woff") format("woff");
+}
+@font-face {
+  font-family: "Supermarker";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("../fonts/Supermarker-RegularWeb.woff2") format("woff2"),
+    url("../fonts/Supermarker-RegularWeb.woff") format("woff");
+}
+@font-face {
+  font-family: "Supermarker";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url("../fonts/Supermarker-MediumWeb.woff2") format("woff2"),
+    url("../fonts/Supermarker-MediumWeb.woff") format("woff");
+}
 @font-face {
   font-family: "Supermarker";
   font-style: normal;
   font-display: swap;
   font-weight: 700;
-  src: url("../fonts/SupermarkerTrial-Bold.woff2") format("woff2"),
-    url("../fonts/SupermarkerTrial-Bold.woff") format("woff");
+  src: url("../fonts/Supermarker-BoldWeb.woff2") format("woff2"),
+    url("../fonts/Supermarker-BoldWeb.woff") format("woff");
+}
+@font-face {
+  font-family: "Supermarker";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 800;
+  src: url("../fonts/Supermarker-BlackWeb.woff2") format("woff2"),
+    url("../fonts/Supermarker-BlackWeb.woff") format("woff");
+}
+
+// ITALIC
+
+@font-face {
+  font-family: "Supermarker";
+  font-style: italic;
+  font-display: swap;
+  font-weight: 200;
+  src: url("../fonts/Supermarker-ThinItalicWeb.woff2") format("woff2"),
+    url("../fonts/Supermarker-ThinItalicWeb.woff") format("woff");
+}
+@font-face {
+  font-family: "Supermarker";
+  font-style: italic;
+  font-display: swap;
+  font-weight: 300;
+  src: url("../fonts/Supermarker-LightItalicWeb.woff2") format("woff2"),
+    url("../fonts/Supermarker-LightItalicWeb.woff") format("woff");
+}
+@font-face {
+  font-family: "Supermarker";
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src: url("../fonts/Supermarker-RegularItalicWeb.woff2") format("woff2"),
+    url("../fonts/Supermarker-RegularItalicWeb.woff") format("woff");
+}
+@font-face {
+  font-family: "Supermarker";
+  font-style: italic;
+  font-display: swap;
+  font-weight: 500;
+  src: url("../fonts/Supermarker-MediumItalicWeb.woff2") format("woff2"),
+    url("../fonts/Supermarker-MediumItalicWeb.woff") format("woff");
+}
+@font-face {
+  font-family: "Supermarker";
+  font-style: italic;
+  font-display: swap;
+  font-weight: 700;
+  src: url("../fonts/Supermarker-BoldItalicWeb.woff2") format("woff2"),
+    url("../fonts/Supermarker-BoldItalicWeb.woff") format("woff");
+}
+@font-face {
+  font-family: "Supermarker";
+  font-style: italic;
+  font-display: swap;
+  font-weight: 800;
+  src: url("../fonts/Supermarker-BlackItalicWeb.woff2") format("woff2"),
+    url("../fonts/Supermarker-BlackItalicWeb.woff") format("woff");
 }
