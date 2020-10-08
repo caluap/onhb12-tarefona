@@ -276,6 +276,18 @@ canvas {
   grid-gap: 1rem;
   padding: 0.5rem 1rem;
   button {
+    user-select: none;
+    font-size: 1.2rem;
+
+    &:nth-child(1) span {
+      padding-right: 1rem;
+    }
+    &:nth-child(2) span {
+      padding-left: 1rem;
+    }
+    span {
+      font-size: 1.5rem;
+    }
   }
 }
 
