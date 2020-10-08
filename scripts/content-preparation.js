@@ -177,6 +177,13 @@ function setupImg(
       "style",
       `width: ${width}px; max-width: ${sizeCalcBox.offsetWidth}px;`
     );
+
+    captionEl.style.position = "absolute";
+    let top = Math.ceil(captionEl.offsetTop / 30) * 30 - 16 + 2;
+    if (top < captionEl.offsetTop) {
+      top += 30;
+    }
+    captionEl.style.top = `${top}px`;
   };
 }
 
