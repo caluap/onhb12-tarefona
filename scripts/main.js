@@ -65,7 +65,11 @@ function detectMobile() {
         ) {
           teamName += data.team_name[i];
         } else {
-          teamName += "*"; // █
+          if (i % 2) {
+            teamName += "⋅"; // █
+          } else {
+            teamName += "-"; // █
+          }
         }
       }
       data.team_name = teamName;
