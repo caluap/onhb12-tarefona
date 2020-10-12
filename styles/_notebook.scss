@@ -175,7 +175,7 @@ canvas {
         to left,
         $paper-color,
         $paper-color 80%,
-        scale-color($paper-color, $lightness: -4%, $saturation: -8) 100%
+        scale-color($paper-color, $lightness: -4%, $saturation: -8%) 100%
       );
     }
   }
