@@ -1,5 +1,5 @@
 let animating = false;
-let animDuration = 1500;
+let animDuration = 1000;
 
 function prepareAnimations() {
   pages = document.querySelectorAll(".page");
