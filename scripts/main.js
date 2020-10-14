@@ -85,6 +85,14 @@ function detectMobile() {
 
     setupListeningMachine();
     setupAudio();
+
+    document.querySelectorAll('#notebook a')
+      .forEach(function (a) {
+        a.addEventListener('click', function (event) {
+          event.stopPropagation(); // avoid turning the page after clicking a link
+        })
+      })
+
     notebook.classList.remove("loading");
   });
 })();
