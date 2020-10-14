@@ -29,16 +29,11 @@ function titlePage() {
   }
 
   // themes
-  themes = "Uma crônica sobre <br />";
-  for (let i = 0; i < data.themes.length; i++) {
-    let theme = data.themes[i].split(" ").join("&nbsp;");
-    if (i == data.themes.length - 1) {
-      // last one
-      themes += `e ${theme}.`;
-    } else {
-      themes += `${theme}, `;
-    }
-  }
+  data.themes = data.themes.map(function (theme) {
+    return theme.replace(/ +/g, "&nbsp;");
+  });
+  let lastTheme = data.themes.pop();
+  themes = "Uma crônica sobre <br />" + data.themes.join(", ") + (data.themes.length ? " e " : "") + lastTheme;
 
   let titlePage = document.getElementById("title-page");
   titlePage.querySelector(".title").innerHTML = title;
