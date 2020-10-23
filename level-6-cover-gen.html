@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <canvas
+      id="cover-canvas"
+      width="462"
+      height="686"
+      class="empty-canvas"
+    ></canvas>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js"
+      integrity="sha512-y3o0Z5TJF1UsKjs/jS2CDkeHN538bWsftxO9nctODL5W40nyXIbs0Pgyu7//icrQY9m6475gLaVr39i/uh/nLA=="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"
+      integrity="sha512-csNcFYJniKjJxRWRV1R7fvnXrycHP6qDR21mgz1ZP55xY5d+aHLfo9/FcGDQLfn2IfngbAHd8LdfsagcCqgTcQ=="
+      crossorigin="anonymous"
+    ></script>
+    <script src="scripts/sha256.min.js"></script>
+    <script src="scripts/animals.js"></script>
+    <script src="scripts/cover-generator.js"></script>
+    <script>
+      let zip = new JSZip();
+      let img = zip.folder("images");
+      let imgCount = 1,
+        imgLimit = parseInt(prompt("qts capas?", "55"));
+
+      function fn(n) {
+        return ("" + n).padStart(3, "0");
+      }
+      function nameGen() {
+        let max = 1 + Math.floor(Math.random() * 4);
+        let n = "";
+        for (let i = 0; i < max; i++) {
+          let rI = Math.floor(Math.random() * animals.length);
+          if (i > 0) {
+            n += " ";
+          }
+          n += animals[rI][0].toUpperCase() + animals[rI].slice(1);
+        }
+        return n;
+      }
+      function newImg() {
+        let seed = sha256("" + Math.random());
+        seed += sha256(seed);
+        coverInit(seed, nameGen());
+        console.log(`generated cover ${imgCount}...`);
+        canvas.toBlob(function (blob) {
+          img.file(`img-${fn(imgCount)}.png`, blob);
+          console.log(`saved img ${imgCount}...`);
+          if (imgCount < imgLimit) {
+            imgCount++;
+            newImg();
+          } else {
+            zip.generateAsync({ type: "blob" }).then(function (content) {
+              saveAs(content, "covers.zip");
+            });
+          }
+        });
+      }
+
+      newImg();
+    </script>
+  </body>
+</html>
