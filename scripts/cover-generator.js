@@ -132,7 +132,7 @@ function findGetParameter(parameterName) {
   return result;
 }
 
-function coverInit(seed, teamName) {
+function coverInit(seed, teamName = "") {
   canvas = document.getElementById("cover-canvas");
   ctx = canvas.getContext("2d");
   width = canvas.offsetWidth;
@@ -207,7 +207,10 @@ function coverInit(seed, teamName) {
 
   // drawGrid(cols, rows, s);
   drawLogo();
-  drawLabel(teamName);
+  if (teamName !== "") {
+    drawLabel(teamName);
+  }
+  ctx.resetTransform();
   canvas.classList.remove("empty-canvas");
 }
 
