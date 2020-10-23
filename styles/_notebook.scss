@@ -345,8 +345,19 @@ $height: $line * 19;
     text-align: center;
   }
 
+  $l-marg: 2/5;
+
+  .epigraph-separator:before {
+    position: relative;
+    content: "* * *";
+    display: block;
+    text-align: center;
+    padding: $line/2 0;
+    line-height: $line;
+    top: -1/3 * $line;
+  }
+
   p.epigraph {
-    $l-marg: 2/5;
     color: $black-ballpoint;
     padding-left: percentage($l-marg);
     .epigraph-author {
@@ -355,15 +366,6 @@ $height: $line * 19;
       &:before {
         content: "— ";
       }
-    }
-    &:before {
-      position: relative;
-      top: -1/3 * $line;
-      content: "* * *";
-      display: block;
-      text-align: center;
-      // centers *** on the page
-      padding: $line/2 percentage(($l-marg)/ (1-$l-marg)) $line/2 0;
     }
   }
   h1 {
