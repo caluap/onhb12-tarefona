@@ -31,7 +31,7 @@
       let zip = new JSZip();
       let img = zip.folder("images");
       let imgCount = 1,
-        imgLimit = 200;
+        imgLimit = parseInt(prompt("qts capas?", "1000"));
 
       function fn(n) {
         return ("" + n).padStart(3, "0");
