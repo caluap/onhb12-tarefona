@@ -26,20 +26,33 @@
       crossorigin="anonymous"
     ></script>
     <script src="scripts/sha256.min.js"></script>
+    <script src="scripts/animals.js"></script>
     <script src="scripts/cover-generator.js"></script>
     <script>
       let zip = new JSZip();
       let img = zip.folder("images");
       let imgCount = 1,
-        imgLimit = parseInt(prompt("qts capas?", "1000"));
+        imgLimit = parseInt(prompt("qts capas?", "55"));
 
       function fn(n) {
         return ("" + n).padStart(3, "0");
       }
+      function nameGen() {
+        let max = 1 + Math.floor(Math.random() * 4);
+        let n = "";
+        for (let i = 0; i < max; i++) {
+          let rI = Math.floor(Math.random() * animals.length);
+          if (i > 0) {
+            n += " ";
+          }
+          n += animals[rI][0].toUpperCase() + animals[rI].slice(1);
+        }
+        return n;
+      }
       function newImg() {
         let seed = sha256("" + Math.random());
         seed += sha256(seed);
-        coverInit(seed);
+        coverInit(seed, nameGen());
         console.log(`generated cover ${imgCount}...`);
         canvas.toBlob(function (blob) {
           img.file(`img-${fn(imgCount)}.png`, blob);
